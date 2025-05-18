@@ -5,7 +5,8 @@ import PeopleCard from '../components/PeopleCard.astro';
 import SessionTab from '../components/SessionTab.astro';
 import SessionTask from '../components/SessionTask.astro';
 import Gradebook from '../components/Gradebook.astro';
-import ClassCard from '../components/ClassCard.astro'
+import ClassCard from '../components/ClassCard.astro';
+import ForumCard from '../components/ForumCard.astro';
 ---  
 
 <Layout>  
@@ -14,5 +15,11 @@ import ClassCard from '../components/ClassCard.astro'
       courseName="Data Structures"
       instructor="Skibidi Philip, M.Kom."
     /> 
-
-</Layout>
+	<ForumCard 
+      courseCode="D1234"
+      professorName="Prof. Amogusussi Cappuccino, Ph.D."
+      postTitle="Intel PowerVia Technology: Backside Power Delivery for High Density and High-Performance Computing"
+      postDate="18 March 2025"
+      replyCount={69}
+    />
+</Layout>	
