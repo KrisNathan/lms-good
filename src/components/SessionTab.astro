@@ -32,7 +32,6 @@ const { activeSessions = sessions } = Astro.props;
         ) : (
           <span class="posts-count">No Posts</span>
         )}
-        
         {session.unreadPosts > 0 && (
           <div class="unread-indicator">
             <span>{session.unreadPosts} Unread Posts</span>

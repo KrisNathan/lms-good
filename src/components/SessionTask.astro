@@ -1,0 +1,163 @@
+---
+// SessionTodoList.astro
+// Component for displaying tasks to complete in a session
+
+interface TaskItem {
+  id: number;
+  title: string;
+  duration: string;
+  icon: 'attendance' | 'recording' | 'document' | 'link';
+  completed?: boolean;
+}
+
+interface Props {
+  sessionTitle?: string;
+  tasks?: TaskItem[];
+}
+
+// Default title and tasks if none are provided
+const defaultTasks: TaskItem[] = [
+  { id: 1, title: "Wifi Attendance", duration: "1h 40m", icon: "attendance", completed: true },
+  { id: 2, title: "Zoom Recording", duration: "10m", icon: "link" },
+  { id: 3, title: "Sample Document", duration: "10m", icon: "document", completed: true },
+  { id: 4, title: "Sample Link", duration: "10m", icon: "link" }
+];
+
+const { 
+  sessionTitle = "Things to do in this session",
+  tasks = defaultTasks 
+} = Astro.props;
+
+// Helper function to get the appropriate icon class based on type
+const getIconClass = (iconType: string): string => {
+  switch(iconType) {
+    case 'attendance':
+      return 'icon-attendance';
+    case 'document':
+      return 'icon-document';
+    case 'link':
+      return 'icon-link';
+    default:
+      return 'icon-document';
+  }
+};
+---
+
+<div class="session-todo-card">
+  <div class="session-todo-header">
+    <h2>{sessionTitle}</h2>
+  </div>
+  
+  <div class="session-todo-content">
+    {tasks.map((task) => (
+      <div class="task-item">
+        <div class="task-icon-container">
+          <div class={`task-icon ${getIconClass(task.icon)} ${task.completed ? 'completed' : ''}`}>
+            {task.icon === 'attendance' && (
+              <img src="/wi-fi-icon.png" alt="Attendance" width="20" height="20" />
+            )}
+            {task.icon === 'document' && (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h6v6h6v10H6z"/></svg>
+            )}
+            {task.icon === 'link' && (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+            )}
+          </div>
+        </div>
+        <div class="task-details">
+          <div class="task-title">{task.title}</div>
+          <div class="task-duration">{task.duration}</div>
+        </div>
+      </div>
+    ))}
+  </div>
+  
+</div>
+
+<style>
+  .session-todo-card {
+    background-color: #f9a825;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .session-todo-header {
+    padding: 16px 20px;
+  }
+
+  .session-todo-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+  }
+
+  .session-todo-content {
+    padding: 0;
+  }
+
+  .task-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .task-icon-container {
+    margin-right: 16px;
+    flex-shrink: 0;
+  }
+
+  .task-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .task-icon img,
+  .task-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .task-icon.completed img,
+  .task-icon.completed svg {
+    filter: hue-rotate(90deg) brightness(1.2);
+  }
+
+  .task-details {
+    flex-grow: 1;
+  }
+
+  .task-title {
+    font-size: 16px;
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  .task-duration {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .session-todo-footer {
+    padding: 12px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .download-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: #757575;
+  }
+</style>
