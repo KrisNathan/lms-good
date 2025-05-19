@@ -1,3 +1,8 @@
+---
+import Navbar from "../components/Navbar.astro"
+import Navbars from "../components/Navbar.astro"
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -8,7 +13,9 @@
 		<title>Astro Basics</title>
 	</head>
 	<body>
-		<slot />
+		<Navbar>
+			<slot />
+		</Navbar>
 	</body>
 </html>
 
