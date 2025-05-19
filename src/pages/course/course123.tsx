@@ -4,7 +4,7 @@ import HorizontalTab from "../../components/tab/HorizontalTab"
 
 export default function Course123Page() {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 mx-32">
       <ClassCard
         courseCode="AIUEO"
         courseName="Data Structures"
