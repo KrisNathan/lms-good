@@ -2,7 +2,7 @@ import { useState } from "react";
 
 interface Props {
   tabs: string[];
-  onTabChanged: (newTab: string, prevTab: string) => void;
+  onTabChanged?: (newTab: string, prevTab: string) => void;
 }
 
 export default function HorizontalTab({ tabs, onTabChanged = () => { } }: Props) {
