@@ -1,8 +1,12 @@
-import CardSideButton from "../../components/buttons/CardSideButton"
+import { useState } from "react"
 import ClassCard from "../../components/ClassCard"
+import SessionsTab from "../../components/course_session/SessionsTab"
 import HorizontalTab from "../../components/tab/HorizontalTab"
+import SyllabusTab from "../../components/course_session/SyllabusTab";
 
 export default function Course123Page() {
+  const [activeTab, setActiveTab] = useState('Sessions');
+
   return (
     <div className="flex flex-col gap-5 mx-32">
       <ClassCard
@@ -11,15 +15,16 @@ export default function Course123Page() {
         instructor="Skibidi Philip, M.Kom."
         onClick={() => window.location.href = '/course'}
       />
-      <HorizontalTab tabs={['Syllabus', 'Sessions', 'Assignment', 'People', 'Grades']} />
+      <HorizontalTab tabs={['Sessions', 'Syllabus', 'Assignment', 'People', 'Grades']} activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="flex flex-col p-5 gap-5 border-solid border-1 border-slate-200 rounded-2xl">
-        <HorizontalTab tabs={['Session 1', 'Session 2', 'Session 3', 'Session 4', 'Session 5', 'Session 6', 'Session 7', 'Session 8', 'Session 9', 'Session 10', 'Session 11']} />
-        <div className="flex flex-row border-solid border-1 border-slate-200 rounded-2xl">
-          <div className="p-5">
-            <div>Attendance</div>
-          </div>
-          <CardSideButton text="Attend" icon="" className="bg-red-200 hover:bg-red-300 ml-auto" />
-        </div>
+        {
+          activeTab === 'Sessions' ?
+            <SessionsTab />
+            : activeTab === 'Syllabus' ?
+              <SyllabusTab />
+              :
+              <></>
+        }
       </div>
     </div>
   )

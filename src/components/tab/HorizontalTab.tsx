@@ -2,11 +2,11 @@ import { useState, useRef, useEffect } from "react";
 
 interface Props {
   tabs: string[];
-  onTabChanged?: (newTab: string, prevTab: string) => void;
+  activeTab: string;
+  setActiveTab?: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function HorizontalTab({ tabs, onTabChanged = () => {} }: Props) {
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+export default function HorizontalTab({ activeTab, tabs, setActiveTab = () => '' }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   
   // Handle horizontal scrolling with the mouse wheel
@@ -62,7 +62,6 @@ export default function HorizontalTab({ tabs, onTabChanged = () => {} }: Props) 
               onClick={() => {
                 const prevTab = activeTab;
                 setActiveTab(t);
-                onTabChanged(t, prevTab);
               }}
             >
               {t}
