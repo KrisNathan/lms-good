@@ -3,6 +3,7 @@ import ClassCard from "../../components/ClassCard"
 import SessionsTab from "../../components/course_session/SessionsTab"
 import HorizontalTab from "../../components/tab/HorizontalTab"
 import SyllabusTab from "../../components/course_session/SyllabusTab";
+import AssignmentTab from "../../components/course_session/AssigmentTab";
 
 export default function Course123Page() {
   const [activeTab, setActiveTab] = useState('Sessions');
@@ -22,8 +23,10 @@ export default function Course123Page() {
             <SessionsTab />
             : activeTab === 'Syllabus' ?
               <SyllabusTab />
-              :
-              <></>
+              : activeTab === 'Assignment' ?
+                <AssignmentTab />
+                :
+                <></>
         }
       </div>
     </div>
