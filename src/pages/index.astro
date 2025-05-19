@@ -1,30 +1,59 @@
----  
-import Layout from '../layouts/Layout.astro';  
-import Navbar from '../components/Navbar.astro';  
-import PeopleCard from '../components/PeopleCard.astro';  
-import SessionTab from '../components/SessionTab.astro';
-import SessionTask from '../components/SessionTask.astro';
-import Gradebook from '../components/Gradebook.astro';
-import ClassCard from '../components/ClassCard.astro';
-import ForumCard from '../components/ForumCard.astro';
-import StudentStatus from '../components/StudentStatus.astro';
----  
+---
+import Layout from "../layouts/Layout.astro";
+import StudentStatus from "../components/StudentStatus.astro";
+import ClassCard from "../components/ClassCard.astro";
+import ClassSessionCard from "../components/ClassSessionCard.astro";
+import ForumPostCard from "../components/ForumPostCard.astro";
+---
 
-<Layout>  
-	<!-- <ClassCard 
-      courseCode="COMP12345"
-      courseName="Data Structures"
-      instructor="Skibidi Philip, M.Kom."
-    /> 
-	<ForumCard 
-      courseCode="D1234"
-      professorName="Prof. Amogusussi Cappuccino, Ph.D."
-      postTitle="Intel PowerVia Technology: Backside Power Delivery for High Density and High-Performance Computing"
-      postDate="18 March 2025"
-      replyCount={69}
-    /> -->
-    <!-- <StudentStatus /> -->
-    
-	
-</Layout>	
+<Layout>
+  <div class="mx-auto w-fit flex flex-col gap-5">
+    <div class="flex flex-col gap-5">
+      <div>
+        <div class="text-2xl font-medium mb-3">Student Status</div>
+        <hr />
+      </div>
+      <div class="flex mb-8 gap-5">
+        <StudentStatus title="Attendance Status" completed={10} total={10} />
+        <StudentStatus title="Exam Eligibility" completed={10} total={10} />
+        <StudentStatus
+          title="Assesment to be Submit"
+          completed={10}
+          total={30}
+        />
+      </div>
+    </div>
 
+    <div class="flex flex-col gap-5">
+      <div>
+        <div class="text-2xl font-medium mb-3">Student Course Dashboard</div>
+        <hr />
+      </div>
+      <div class="flex flex-col gap-4">
+        <div class="flex gap-4">
+          <ClassCard
+            courseCode="COMP12345"
+            courseName="Data Structures"
+            instructor="Jeremy Zhang, M.Kom."
+          />
+          <ClassSessionCard
+            title="Scientific Computing"
+            sessionNumber={10}
+            classCode="A0507"
+            timeSlot="07:20-09:00"
+            isOngoing={true}
+          />
+        </div>
+
+        <ForumPostCard
+          courseCode="D1234"
+          professorName="Prof. Amogusussi Cappuccino"
+          professorTitle="Ph.D."
+          postTitle="Interacting or whatever"
+          postDate="3 May 2025"
+          replyCount={3}
+        />
+      </div>
+    </div>
+  </div>
+</Layout>
