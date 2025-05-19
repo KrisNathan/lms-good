@@ -12,7 +12,7 @@ const { title, sessionNumber, classCode, timeSlot, isOngoing = false } = Astro.p
 ---
 
 <div class="class-session-card">
-  {isOngoing && <div class="ongoing-badge">ONGOING NOW!!!!!!</div>}
+  {isOngoing && <div class="ongoing-badge">ONGOING NOW</div>}
   <h2 class="title">{title}</h2>
   <div class="details">
     <div class="detail-item">
@@ -29,12 +29,34 @@ const { title, sessionNumber, classCode, timeSlot, isOngoing = false } = Astro.p
     </div>
   </div>
   {isOngoing && (
-    <a href="#" class="attend-button">
+    <button id="attendButton" class="attend-button">
       <span class="attend-icon">⊙</span>
-      Attend ongoing class
-    </a>
+      <span id="buttonText">Attend Ongoing Class</span>
+    </button>
   )}
 </div>
+
+<script>
+  // Client-side JavaScript to handle the button state
+  document.addEventListener('DOMContentLoaded', () => {
+    const attendButton = document.getElementById('attendButton');
+    const buttonText = document.getElementById('buttonText');
+    
+    if (attendButton) {
+      attendButton.addEventListener('click', () => {
+        // Toggle the attended state
+        const isAttended = attendButton.classList.toggle('attended');
+        
+        // Update the button text based on state
+        if (isAttended) {
+          buttonText.textContent = 'Attended Ongoing Class';
+        } else {
+          buttonText.textContent = 'Attend Ongoing Class';
+        }
+      });
+    }
+  });
+</script>
 
 <style>
   .class-session-card {
@@ -96,11 +118,22 @@ const { title, sessionNumber, classCode, timeSlot, isOngoing = false } = Astro.p
     gap: 0.5rem;
     font-weight: medium;
     margin-top: 0.75rem;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
   }
 
   .attend-button:hover {
     background-color: #ffb3b3;
+  }
+  
+  /* Attended state styles */
+  .attend-button.attended {
+    background-color: #a7e8a9;
+  }
+  
+  .attend-button.attended:hover {
+    background-color: #8edc91;
   }
 
   .attend-icon {
