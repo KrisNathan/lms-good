@@ -3,11 +3,12 @@ interface Props {
   courseName: string;
   instructor: string;
   buttonText?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function ClassCard({ courseCode, courseName, instructor, buttonText = 'View Class' }: Props) {
+export default function ClassCard({ courseCode, courseName, instructor, buttonText = 'View Class', onClick = () => { } }: Props) {
   return (
-    <div className="rounded-2xl border-slate-200 border-solid border-1 w-full overflow-hidden">
+    <button className="rounded-2xl border-slate-200 border-solid border-1 w-full overflow-hidden hover:border-orange-100 hover:cursor-pointer hover:animate-pulse text-left" onClick={onClick}>
       <div className="p-5">
         {courseCode}
       </div>
@@ -17,13 +18,13 @@ export default function ClassCard({ courseCode, courseName, instructor, buttonTe
           <p className="">{instructor}</p>
         </div>
 
-        <button className="rounded-2xl bg-white w-full flex flex-row py-1 px-5">
+        <div className="rounded-2xl bg-white w-full flex flex-row py-1 px-5">
           <div className="text-left">
             {buttonText}
           </div>
           <span className="ml-auto">▶</span>
-        </button>
+        </div>
       </div>
-    </div>
+    </button>
   )
 }
