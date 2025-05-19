@@ -7,50 +7,53 @@ import ForumPostCard from "../../components/ForumPostCard.astro";
 ---
 
 <Layout>
-  <div class="mx-auto flex flex-col">
-    <div class="text-2xl font-medium mb-3">Student Status</div>
-    <div class="flex justify-center mb-8 gap-5">
-      <StudentStatus 
-        title="Attendance Status"
-        value= 10
-        total= 10
-      />
-      <StudentStatus 
-        title="Exam Eligibility"
-        value="10"
-        total="Out of 10"
-      />
-      <StudentStatus 
-        title="Assesment to be Submit"
-        value="10"
-        total="Out of 30"
-      />
+  <div class="mx-auto w-fit flex flex-col gap-5">
+    <div class="flex flex-col gap-5">
+      <div>
+        <div class="text-2xl font-medium mb-3">Student Status</div>
+        <hr />
+      </div>
+      <div class="flex mb-8 gap-5">
+        <StudentStatus title="Attendance Status" completed={10} total={10} />
+        <StudentStatus title="Exam Eligibility" completed={10} total={10} />
+        <StudentStatus
+          title="Assesment to be Submit"
+          completed={10}
+          total={30}
+        />
+      </div>
     </div>
-    
-    <div class="text-2xl font-medium mb-3">Student Course Dashboard</div>
-    <div class="flex gap-4 mb-8">
-      <ClassCard
-        courseCode="COMP12345"
-        courseName="Data Structures"
-        instructor="Jeremy Zhang, M.Kom."
-        courseId="D1234"
-      />
-      <ClassSessionCard
-        title="Scientific Computing"
-        sessionNumber={10}
-        classCode="A0507"
-        timeSlot="07:20-09:00"
-        isOngoing={true}
-      />
+
+    <div class="flex flex-col gap-5">
+      <div>
+        <div class="text-2xl font-medium mb-3">Student Course Dashboard</div>
+        <hr />
+      </div>
+      <div class="flex flex-col gap-4">
+        <div class="flex gap-4">
+          <ClassCard
+            courseCode="COMP12345"
+            courseName="Data Structures"
+            instructor="Jeremy Zhang, M.Kom."
+          />
+          <ClassSessionCard
+            title="Scientific Computing"
+            sessionNumber={10}
+            classCode="A0507"
+            timeSlot="07:20-09:00"
+            isOngoing={true}
+          />
+        </div>
+
+        <ForumPostCard
+          courseCode="D1234"
+          professorName="Prof. Amogusussi Cappuccino"
+          professorTitle="Ph.D."
+          postTitle="Interacting or whatever"
+          postDate="3 May 2025"
+          replyCount={3}
+        />
+      </div>
     </div>
-    
-    <ForumPostCard
-      courseCode="D1234"
-      professorName="Prof. Amogusussi Cappuccino"
-      professorTitle="Ph.D."
-      postTitle="Interacting or whatever"
-      postDate="3 May 2025"
-      replyCount={3}
-    />
   </div>
 </Layout>
