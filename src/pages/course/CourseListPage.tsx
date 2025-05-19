@@ -14,7 +14,6 @@ export default function CourseListPage() {
           courseName="Data Structures"
           instructor="Skibidi Philip, M.Kom."
           onClick={() => {
-            console.log("hi");
             window.location.href = "/course/course123";
           }}
         />
