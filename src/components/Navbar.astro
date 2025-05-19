@@ -2,7 +2,6 @@
 ---
 
 <div class="classroom-container">
-  <!-- Top Navbar - now positioned above everything -->
   <header class="top-navbar">
     <div class="navbar-left">
       <button class="menu-toggle" aria-label="Toggle Menu" id="menu-toggle">
@@ -23,23 +22,22 @@
   </header>
 
   <div class="content-wrapper">
-    <!-- Sidebar - now positioned below navbar -->
     <aside class="sidebar" id="sidebar">
       <nav class="sidebar-nav">
         <ul>
-          <li class="sidebar-item active">
+          <li class="sidebar-item" data-path-match="/">
             <a href="/home" aria-label="Home">
-              <img src=/home.png alt="Home" width="24" height="24" />
+              <img src="/home.png" alt="Home" width="24" height="24" />
               <span class="sidebar-text">Home</span>
             </a>
           </li>
-          <li class="sidebar-item">
+          <li class="sidebar-item" data-path-match="/calendar">
             <a href="/calendar" aria-label="Calendar">
               <img src="/calendar.png" alt="Calendar" width="24" height="24" />
               <span class="sidebar-text">Calendar</span>
             </a>
           </li>
-          <li class="sidebar-item">
+          <li class="sidebar-item" data-path-match="/course">
             <a href="/course" aria-label="Assignments">
               <img src="/courses-icon.png" alt="Courses" width="24" height="24" />
               <span class="sidebar-text">Courses</span>
@@ -59,10 +57,41 @@
   document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
+    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    const contentWrapper = document.querySelector('.content-wrapper');
+    const currentPath = window.location.pathname;
+
     menuToggle.addEventListener('click', () => {
       sidebar.classList.toggle('expanded');
-      document.querySelector('.content-wrapper').classList.toggle('sidebar-expanded');
+      contentWrapper.classList.toggle('sidebar-expanded');
     });
+
+    // Function to update active sidebar item
+    function updateActiveSidebarItem() {
+      sidebarItems.forEach(item => {
+        item.classList.remove('active');
+        const pathMatch = item.getAttribute('data-path-match');
+
+        if (pathMatch) {
+          // Handle exact matches and base paths
+          if (pathMatch === '/' && (currentPath === '/' || currentPath === '/home')) {
+            item.classList.add('active');
+          } else if (currentPath === pathMatch) {
+            item.classList.add('active');
+          } else if (pathMatch === '/course' && (currentPath === '/course' || currentPath.startsWith('/course/'))) {
+            item.classList.add('active');
+          }
+        }
+      });
+    }
+
+    // Initial update on page load
+    updateActiveSidebarItem();
+
+    // Astro specific: if using view transitions or client-side navigation,
+    // you might need to listen to Astro's navigation events.
+    // For MPAs, DOMContentLoaded is usually sufficient.
+    // document.addEventListener('astro:page-load', updateActiveSidebarItem); // Uncomment if using Astro view transitions
   });
 </script>
 
