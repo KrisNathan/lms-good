@@ -1,11 +1,14 @@
 import HorizontalTab from "../../components/tab/HorizontalTab";
 import ClassCard from "../../components/ClassCard";
+import { useState } from 'react';
 
 export default function CourseListPage() {
+  const [activeTab, setActiveTab] = useState('All');
+
   return (
     <div className="flex flex-col gap-5">
       <div className="mx-auto">
-        <HorizontalTab tabs={["All", "CL", "LAB", "LEC"]} />
+        <HorizontalTab activeTab={activeTab} setActiveTab={setActiveTab} tabs={["All", "CL", "LAB", "LEC"]} />
       </div>
       <div className="mx-32 flex flex-col gap-5">
         <ClassCard
