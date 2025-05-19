@@ -1,39 +1,48 @@
-    ---
-    // ClassCard.astro
-    interface Props {
+---
+// ClassCard.astro
+interface Props {
     courseCode: string;
     courseName: string;
     instructor: string;
     buttonText?: string;
-    }
+}
 
-    const { courseCode, courseName, instructor, buttonText = "View Class" } = Astro.props;
-    ---
+const {
+    courseCode,
+    courseName,
+    instructor,
+    buttonText = "View Class",
+} = Astro.props;
+---
 
 <!-- <ClassCard 
       courseCode="COMP12345"
       courseName="Data Structures"
       instructor="Skibidi Philip, M.Kom."
     /> -->
-
-    <div class="class-card">
+<div class="class-card">
     <div class="course-code">
         {courseCode}
     </div>
     <div class="card-content">
         <h2 class="course-name">{courseName}</h2>
         <p class="instructor">{instructor}</p>
-        
+
         <button class="view-button">
-        {buttonText}
-        <span class="arrow">▶</span>
+            {buttonText}
+            <span class="arrow">▶</span>
         </button>
     </div>
-    </div>
+</div>
 
-    <style>
+<style>
     .class-card {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-family:
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            sans-serif;
         max-width: 370px;
         border-radius: 20px;
         overflow: hidden;
@@ -84,4 +93,4 @@
     .arrow {
         font-size: 0.8rem;
     }
-    </style>
+</style>
