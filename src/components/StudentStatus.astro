@@ -2,6 +2,7 @@
 // StudentStatus.astro
 // Props interface for type safety
 interface Props {
+  title?: string;
   completed?: number;
   total?: number;
   backgroundColor?: string;
@@ -9,19 +10,21 @@ interface Props {
 
 // Default values if not provided
 const { 
-  completed = 150, 
-  total = 120, 
+  title = "Attendance Status",
+  completed = 10, 
+  total = 10, 
   backgroundColor = "#FFE6B9" 
 } = Astro.props;
 ---
 
 <div class="student-status-container">
   <div class="student-status-card">
-    <h2 class="student-status-title">Student Activity Transcript</h2>
+    <h2 class="student-status-title">{title}</h2>
     <div class="student-status-values">
-      <span class="completed-value">{completed}</span>
-      <div class="divider"></div>
-      <span class="total-value">{total}</span>
+      <div class="status-display">
+        <span class="completed-value">{completed}</span>
+        <div class="out-of-text">Out of {total}</div>
+      </div>
     </div>
   </div>
 </div>
@@ -53,35 +56,31 @@ const {
   }
 
   .student-status-values {
-    position: relative;
     background-color: var(--backgroundColor);
-    padding: 32px 24px;
+    padding: 24px;
     min-height: 140px;
-    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .status-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
   .completed-value {
-    position: absolute;
-    top: 20px;
-    left: 40px;
-    font-size: 48px;
+    font-size: 56px;
+    font-weight: bold;
+    line-height: 1.2;
   }
 
-  .total-value {
-    position: absolute;
-    bottom: 20px;
-    right: 40px;
-    font-size: 48px;
-  }
-
-  .divider {
-    margin-top: 130px;
-    width: 80%;
-    height: 3px;
-    background-color: #000;
-    transform-origin: top left;
-    transform: rotate(-32deg) scaleX(1.15);
-    display: flex;
-    justify-self: center;
+  .out-of-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 8px;
   }
 </style>
