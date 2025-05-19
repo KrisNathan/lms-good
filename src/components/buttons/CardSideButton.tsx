@@ -6,7 +6,7 @@ interface Props {
 };
 
 export default function CardSideButton({ icon, text, className = '', onClick = (e) => { } }: Props) {
-  return <button className={`flex flex-row w-fit gap-1 rounded-r-2xl px-5 items-center ${className}`}
+  return <button className={`flex flex-row w-fit gap-1 rounded-r-2xl px-5 items-center hover:cursor-pointer ${className}`}
     onClick={onClick}>
     <img src={icon}></img>
     <div>{text}</div>
