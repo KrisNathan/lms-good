@@ -50,7 +50,7 @@ export default function HorizontalTab({ tabs, onTabChanged = () => {} }: Props) 
             <button
               key={i}
               id={`tab-${t}-tab`}
-              className="appearance-none p-2 bg-slate-100 hover:bg-slate-200 whitespace-nowrap flex-shrink-0"
+              className="appearance-none p-2 bg-slate-100 hover:bg-slate-200 whitespace-nowrap flex-shrink-0 hover:cursor-pointer"
             >
               {t}
             </button>
@@ -58,7 +58,7 @@ export default function HorizontalTab({ tabs, onTabChanged = () => {} }: Props) 
             <button
               key={i}
               id={`tab-${t}-tab`}
-              className="appearance-none p-2 hover:bg-slate-200 whitespace-nowrap flex-shrink-0"
+              className="appearance-none p-2 hover:bg-slate-200 whitespace-nowrap flex-shrink-0 hover:cursor-pointer"
               onClick={() => {
                 const prevTab = activeTab;
                 setActiveTab(t);
