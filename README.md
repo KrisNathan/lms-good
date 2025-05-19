@@ -1,4 +1,4 @@
-# Bimay Better
+# Learning Management System
 
 ## 🚀 Project Structure
 
