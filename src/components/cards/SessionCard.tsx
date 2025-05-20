@@ -7,6 +7,7 @@ interface SessionCardProps {
   room: string;
   time: string;
   category: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const SessionCard: React.FC<SessionCardProps> = ({
@@ -16,9 +17,12 @@ const SessionCard: React.FC<SessionCardProps> = ({
   room,
   time,
   category,
+  onClick = () => {},
 }) => {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm hover:shadow-md hover:cursor-pointer transition-shadow"
+      onClick={onClick}
+    >
       <div className="flex justify-between items-start mb-3">
         <h3 className="text-lg font-semibold text-gray-900 leading-tight">{title}</h3>
         <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">

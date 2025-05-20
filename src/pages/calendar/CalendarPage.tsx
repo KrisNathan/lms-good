@@ -62,6 +62,7 @@ export default function CalendarPage() {
                     room={session.room}
                     time={session.time}
                     category={session.category}
+                    onClick={() => window.location.href = '/course/course123'}
                   />
                 ))}
               </div>
