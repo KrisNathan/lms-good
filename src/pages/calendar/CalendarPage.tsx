@@ -1,6 +1,6 @@
 import React from 'react';
 import Calendar from '../../components/Calendar';
-import SessionCard from '../../components/cards/SessionCards';
+import SessionCard from '../../components/cards/SessionCard';
 
 export default function CalendarPage() {
   const sessions = [
