@@ -11,23 +11,23 @@ interface Props {
 
 const { courseCode, professorName, professorTitle, postTitle, postDate, replyCount } = Astro.props;
 ---
-
-<div class="forum-post-card">
-  <div class="post-header">
-    <span class="course-code">{courseCode}</span>
-    <span class="separator">-</span>
-    <span class="professor">Prof. {professorName}, {professorTitle}</span>
+<a href="/course/course123/">
+  <div class="forum-post-card" >
+    <div class="post-header">
+      <span class="course-code">{courseCode}</span>
+      <span class="separator">-</span>
+      <span class="professor">Prof. {professorName}, {professorTitle}</span>
+    </div>
+    
+    <h2 class="post-title">{postTitle}</h2>
+    
+    <div class="post-date">{postDate}</div>
+    
+    <div class="post-footer">
+      <div class="reply-count">{replyCount} {replyCount === 1 ? 'Reply' : 'Replies'}</div>
+    </div>
   </div>
-  
-  <h2 class="post-title">{postTitle}</h2>
-  
-  <div class="post-date">{postDate}</div>
-  
-  <div class="post-footer">
-    <div class="reply-count">{replyCount} {replyCount === 1 ? 'Reply' : 'Replies'}</div>
-  </div>
-</div>
-
+</a>
 <style>
   .forum-post-card {
     background-color: #ffffff;

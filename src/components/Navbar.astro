@@ -12,9 +12,6 @@
       </div>
     </div>
     <div class="navbar-right">
-      <button class="create-button" aria-label="Create">
-        <span>+</span>
-      </button>
       <div class="user-profile">
         <img src="/user-icon.png" alt="User Profile" width="32" height="32" />
       </div>
@@ -85,13 +82,7 @@
       });
     }
 
-    // Initial update on page load
     updateActiveSidebarItem();
-
-    // Astro specific: if using view transitions or client-side navigation,
-    // you might need to listen to Astro's navigation events.
-    // For MPAs, DOMContentLoaded is usually sufficient.
-    // document.addEventListener('astro:page-load', updateActiveSidebarItem); // Uncomment if using Astro view transitions
   });
 </script>
 
