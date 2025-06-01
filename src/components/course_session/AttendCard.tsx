@@ -32,8 +32,14 @@ export default function AttendCard() {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row border border-slate-200 rounded-2xl">
-        <div className="p-5">
-          <div>Attendance</div>
+        <div className="p-5 flex-1">
+          <div className="font-semibold mb-2">Attendance</div>
+          <div className="text-sm text-gray-600">
+            {attended 
+              ? "20 minutes and 11 seconds until class ends"
+              : "20 minutes and 11 seconds until class starts and attendance is available"
+            }
+          </div>
         </div>
         <CardSideButton
           text={attended ? "Attended" : "Attend"}
@@ -44,10 +50,9 @@ export default function AttendCard() {
           onClick={handleAttendClick}
         />
       </div>
-      
       {showError && (
         <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-center font-medium animate-fade-in">
-          You are not in the range for attendance. Go near the class assigned for this subject to be able to attend.
+          You are not in the range for attendance!
         </div>
       )}
     </div>
