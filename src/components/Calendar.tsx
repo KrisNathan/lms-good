@@ -108,9 +108,9 @@ const Calendar: React.FC = () => {
           <div
             key={index}
             className={`
-              text-center p-2 text-sm cursor-pointer hover:bg-gray-50 rounded
+              text-center p-2 text-sm cursor-pointer rounded
               ${!day.isCurrentMonth ? 'text-gray-400' : 'text-gray-900'}
-              ${day.isToday ? 'bg-blue-500 text-white hover:bg-blue-600' : ''}
+              ${day.isToday ? 'bg-blue-400':'hover:bg-gray-100'}
             `}
           >
             {day.date}
