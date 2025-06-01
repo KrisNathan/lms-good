@@ -35,14 +35,13 @@ const { title, sessionNumber, classCode, timeSlot, isOngoing = false } = Astro.p
         <span id="buttonText">Attend Ongoing Class</span>
       </button>
       <div id="errorMessage" class="error-message text-xs" style="display: none;">
-        You are not in the range for attendance!
+        You are not in the range for attendance. Please go near the class for this subject!
       </div>
     </>
   )}
 </div>
 
 <script>
-  // Client-side JavaScript to handle the button state
   document.addEventListener('DOMContentLoaded', () => {
     const attendButton = document.getElementById('attendButton');
     const buttonText = document.getElementById('buttonText');
@@ -50,27 +49,21 @@ const { title, sessionNumber, classCode, timeSlot, isOngoing = false } = Astro.p
     
     if (attendButton) {
       attendButton.addEventListener('click', () => {
-        // Check if already attended
         if (attendButton.classList.contains('attended')) {
-          // If already attended, toggle back to unattended
           attendButton.classList.remove('attended');
           buttonText.textContent = 'Attend Ongoing Class';
           errorMessage.style.display = 'none';
           return;
         }
         
-        // 50/50 chance of success or failure
         const isSuccess = Math.random() < 0.5;
         
         if (isSuccess) {
-          // Success - mark as attended
           attendButton.classList.add('attended');
           buttonText.textContent = 'Attended Ongoing Class';
           errorMessage.style.display = 'none';
         } else {
-          // Failure - show error message
           errorMessage.style.display = 'block';
-          // Hide error message after 3 seconds
           setTimeout(() => {
             errorMessage.style.display = 'none';
           }, 3000);
