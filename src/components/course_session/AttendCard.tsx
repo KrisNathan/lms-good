@@ -47,7 +47,7 @@ export default function AttendCard() {
       
       {showError && (
         <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-center font-medium animate-fade-in">
-          You are not in the range for attendance!
+          You are not in the range for attendance. Go near the class assigned for this subject to be able to attend.
         </div>
       )}
     </div>
