@@ -18,7 +18,7 @@ export default function ClassCard({ courseCode, courseName, instructor, buttonTe
           <p className="">{instructor}</p>
         </div>
 
-        <div className="rounded-2xl bg-white w-full flex flex-row py-1 px-5">
+        <div className="rounded-3xl bg-white w-full flex flex-row py-3 px-5">
           <div className="text-left">
             {buttonText}
           </div>
