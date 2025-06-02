@@ -1,97 +1,38 @@
 ---
 // ClassCard.astro
 interface Props {
-    courseCode: string;
-    courseName: string;
-    instructor: string;
-    buttonText?: string;
+  courseCode: string;
+  courseName: string;
+  instructor: string;
+  buttonText?: string;
 }
 
 const {
-    courseCode,
-    courseName,
-    instructor,
-    buttonText = "View Class",
+  courseCode,
+  courseName,
+  instructor,
+  buttonText = "View Class",
 } = Astro.props;
 ---
 
-<!-- <ClassCard 
-      courseCode="COMP12345"
-      courseName="Data Structures"
-      instructor="Skibidi Philip, M.Kom."
-    /> -->
-<div class="class-card">
-    <div class="course-code">
-        {courseCode}
+<a
+  href="/course/course123"
+  class="rounded-2xl border-slate-200 border-solid border-1 flex-1 overflow-hidden flex flex-col hover:border-orange-100 hover:cursor-pointer hover:animate-pulse text-left"
+>
+  <div class="p-5">
+    {courseCode}
+  </div>
+  <div class="bg-orange-100 p-5 flex-1 flex flex-col gap-5">
+    <div class="flex-1">
+      <h2 class="font-bold text-xl">{courseName}</h2>
+      <p class="">{instructor}</p>
     </div>
-    <div class="card-content">
-        <h2 class="course-name">{courseName}</h2>
-        <p class="instructor">{instructor}</p>
-        <a href ='/course/course123'>
-            <div class="view-button">
-                {buttonText}
-                <span class="arrow">▶</span>
-            </div>
-        </a>
+
+    <div class="rounded-2xl bg-white w-full flex flex-row py-1 px-5">
+      <div class="text-left">
+        {buttonText}
+      </div>
+      <span class="ml-auto">▶</span>
     </div>
-</div>
-
-<style>
-    .class-card {
-        font-family:
-            system-ui,
-            -apple-system,
-            BlinkMacSystemFont,
-            "Segoe UI",
-            sans-serif;
-        max-width: 370px;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: white;
-    }
-
-    .course-code {
-        padding: 16px 20px;
-        font-weight: 500;
-        font-size: 1.1rem;
-        background-color: white;
-    }
-
-    .card-content {
-        background-color: #f8e8cb; /* Cream/beige background */
-        padding: 16px 20px 24px;
-    }
-
-    .course-name {
-        margin: 0 0 6px 0;
-        font-size: 2rem;
-        font-weight: 600;
-        color: #000;
-    }
-
-    .instructor {
-        margin: 0 0 25px 0;
-        font-size: 1.25rem;
-        color: #000;
-    }
-
-    .view-button {
-        background-color: white;
-        border: none;
-        border-radius: 15px;
-        padding: 12px 20px;
-        font-size: 1rem;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        max-width: 200px;
-        cursor: pointer;
-    }
-
-    .arrow {
-        font-size: 0.8rem;
-    }
-</style>
+  </div>
+</a>

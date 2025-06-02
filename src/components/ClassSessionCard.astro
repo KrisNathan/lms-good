@@ -11,30 +11,40 @@ interface Props {
 const { title, sessionNumber, classCode, timeSlot, isOngoing = false } = Astro.props;
 ---
 
-<div class="class-session-card">
-  {isOngoing && <div class="ongoing-badge">ONGOING NOW</div>}
-  <h2 class="title">{title}</h2>
-  <div class="details">
-    <div class="detail-item">
-      <span class="icon">📝</span>
+<div class="font-sans bg-white rounded-3xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.05)] max-w-[450px] flex-1 relative">
+  {isOngoing && <div class="text-[#e94335] font-bold mb-1 text-base">ONGOING NOW</div>}
+  
+  <h2 class="text-2xl font-bold mt-1 mb-4 text-[#212121]">{title}</h2>
+  
+  <div class="flex flex-col gap-2 mb-4">
+    <div class="flex items-center gap-2 text-[#666666]">
+      <span class="text-[#888888] text-base w-6 h-6 flex items-center justify-center">📝</span>
       <span>Session {sessionNumber}</span>
     </div>
-    <div class="detail-item">
-      <span class="icon">📍</span>
+    <div class="flex items-center gap-2 text-[#666666]">
+      <span class="text-[#888888] text-base w-6 h-6 flex items-center justify-center">📍</span>
       <span>{classCode}</span>
     </div>
-    <div class="detail-item">
-      <span class="icon">🕒</span>
+    <div class="flex items-center gap-2 text-[#666666]">
+      <span class="text-[#888888] text-base w-6 h-6 flex items-center justify-center">🕒</span>
       <span>{timeSlot}</span>
     </div>
   </div>
+
   {isOngoing && (
     <>
-      <button id="attendButton" class="attend-button">
-        <span class="attend-icon">⊙</span>
+      <button 
+        id="attendButton" 
+        class="w-full bg-[#ffcdd2] text-[#212121] py-3 px-4 rounded-3xl flex items-center justify-center gap-2 font-medium mt-3 transition-all duration-200 ease-in-out cursor-pointer border-none hover:bg-[#ffb3b3] [&.attended]:bg-[#a7e8a9] [&.attended]:hover:bg-[#8edc91]"
+      >
+        <span class="font-bold">⊙</span> {/* Original .attend-icon had font-weight: bold */}
         <span id="buttonText">Attend Ongoing Class</span>
       </button>
-      <div id="errorMessage" class="error-message text-xs" style="display: none;">
+      <div 
+        id="errorMessage" 
+        class="bg-[#ffebee] text-[#c62828] p-3 rounded-xl mt-3 border border-[#ffcdd2] text-center font-medium text-xs animate-fadeIn"
+        style="display: none;"
+      >
         You not in the range for class attendance. 
       </div>
     </>
@@ -42,6 +52,8 @@ const { title, sessionNumber, classCode, timeSlot, isOngoing = false } = Astro.p
 </div>
 
 <script>
+  // Script remains the same. It manipulates IDs and the 'attended' class.
+  // The Tailwind arbitrary variant '[&.attended]:...' will correctly style based on this class.
   document.addEventListener('DOMContentLoaded', () => {
     const attendButton = document.getElementById('attendButton');
     const buttonText = document.getElementById('buttonText');
@@ -51,8 +63,8 @@ const { title, sessionNumber, classCode, timeSlot, isOngoing = false } = Astro.p
       attendButton.addEventListener('click', () => {
         if (attendButton.classList.contains('attended')) {
           attendButton.classList.remove('attended');
-          buttonText.textContent = 'Attend Ongoing Class';
-          errorMessage.style.display = 'none';
+          if (buttonText) buttonText.textContent = 'Attend Ongoing Class';
+          if (errorMessage) errorMessage.style.display = 'none';
           return;
         }
         
@@ -60,121 +72,45 @@ const { title, sessionNumber, classCode, timeSlot, isOngoing = false } = Astro.p
         
         if (isSuccess) {
           attendButton.classList.add('attended');
-          buttonText.textContent = 'Attended Ongoing Class';
-          errorMessage.style.display = 'none';
+          if (buttonText) buttonText.textContent = 'Attended Ongoing Class';
+          if (errorMessage) errorMessage.style.display = 'none';
         } else {
-          errorMessage.style.display = 'block';
-          setTimeout(() => {
-            errorMessage.style.display = 'none';
-          }, 3000);
+          // Ensure button doesn't get 'attended' class if it failed
+          attendButton.classList.remove('attended'); 
+          if (buttonText) buttonText.textContent = 'Attend Ongoing Class';
+
+          if (errorMessage) {
+            errorMessage.style.display = 'block';
+            setTimeout(() => {
+              errorMessage.style.display = 'none';
+            }, 3000);
+          }
         }
       });
     }
   });
 </script>
 
-<style>
-  .class-session-card {
-    background-color: #ffffff;
-    border-radius: 24px;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    max-width: 450px;
-    position: relative;
-  }
+<!-- 
+  Tailwind Configuration for Animation (e.g., in tailwind.config.js or tailwind.config.cjs):
 
-  .ongoing-badge {
-    color: #e94335;
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-    font-size: 1rem;
+  module.exports = {
+    // ... other configurations
+    theme: {
+      extend: {
+        keyframes: {
+          fadeIn: {
+            '0%': { opacity: '0', transform: 'translateY(-10px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          }
+        },
+        animation: {
+          fadeIn: 'fadeIn 0.3s ease-in', // Matches original animation
+        }
+      },
+    },
+    plugins: [
+      // ... other plugins
+    ],
   }
-
-  .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0.25rem 0 1rem 0;
-    color: #212121;
-  }
-
-  .details {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .detail-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #666666;
-  }
-
-  .icon {
-    color: #888888;
-    font-size: 1rem;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .attend-button {
-    background-color: #ffcdd2;
-    color: #212121;
-    padding: 0.75rem 1rem;
-    border-radius: 24px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-weight: medium;
-    margin-top: 0.75rem;
-    transition: all 0.2s;
-    border: none;
-    cursor: pointer;
-  }
-
-  .attend-button:hover {
-    background-color: #ffb3b3;
-  }
-  
-  /* Attended state styles */
-  .attend-button.attended {
-    background-color: #a7e8a9;
-  }
-  
-  .attend-button.attended:hover {
-    background-color: #8edc91;
-  }
-
-  .attend-icon {
-    font-weight: bold;
-  }
-
-  .error-message {
-    background-color: #ffebee;
-    color: #c62828;
-    padding: 0.75rem;
-    border-radius: 12px;
-    margin-top: 0.75rem;
-    border: 1px solid #ffcdd2;
-    text-align: center;
-    font-weight: medium;
-    animation: fadeIn 0.3s ease-in;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
+-->

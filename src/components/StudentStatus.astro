@@ -9,78 +9,28 @@ interface Props {
 }
 
 // Default values if not provided
-const { 
+const {
   title = "Attendance Status",
-  completed = 10, 
-  total = 10, 
-  backgroundColor = "#FFE6B9" 
+  completed = 10,
+  total = 10,
+  backgroundColor = "#FFE6B9"
 } = Astro.props;
 ---
 
-<div class="student-status-container">
-  <div class="student-status-card">
-    <h2 class="student-status-title">{title}</h2>
-    <div class="student-status-values">
-      <div class="status-display">
-        <span class="completed-value">{completed}</span>
-        <div class="out-of-text">Out of {total}</div>
+<div class="flex flex-1 justify-center items-center font-sans"> {/* font-sans is Tailwind's default */}
+  <div class="bg-white rounded-2xl shadow-[0_4px_8px_rgba(0,0,0,0.1)] overflow-hidden w-full max-w-xs">
+    <h2 class="m-0 p-4 text-lg font-semibold text-center border-b border-gray-200">
+      {title}
+    </h2>
+    <div
+      class="bg-orange-100 p-6 min-h-[140px] flex justify-center items-center"
+    >
+      <div class="flex flex-col items-center justify-center text-center">
+        <span class="text-[56px] font-bold leading-[1.2]">{completed}</span>
+        <div class="text-lg font-bold mt-2">Out of {total}</div>
       </div>
     </div>
   </div>
 </div>
 
-<style define:vars={{ backgroundColor }}>
-  .student-status-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  }
-
-  .student-status-card {
-    background-color: white;
-    border-radius: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    width: 100%;
-    max-width: 320px;
-  }
-
-  .student-status-title {
-    margin: 0;
-    padding: 16px;
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
-    border-bottom: 1px solid #eee;
-  }
-
-  .student-status-values {
-    background-color: var(--backgroundColor);
-    padding: 24px;
-    min-height: 140px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .status-display {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .completed-value {
-    font-size: 56px;
-    font-weight: bold;
-    line-height: 1.2;
-  }
-
-  .out-of-text {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 8px;
-  }
-</style>
+<!-- No <style> block needed anymore -->
