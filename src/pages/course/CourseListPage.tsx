@@ -35,7 +35,6 @@ export default function CourseListPage() {
       </div>
       <div className="mx-32 flex flex-col gap-5">
         <ClassCard
-
           courseCode="AIUEO"
           courseName="Data Structures"
           instructor="Skibidi Philip, M.Kom."
@@ -47,11 +46,17 @@ export default function CourseListPage() {
           courseCode="AIUEO"
           courseName="Data Structures"
           instructor="Skibidi Philip, M.Kom."
+          onClick={() => {
+            window.location.href = "/course/course123";
+          }}
         />
         <ClassCard
           courseCode="AIUEO"
           courseName="Data Structures"
           instructor="Skibidi Philip, M.Kom."
+          onClick={() => {
+            window.location.href = "/course/course123";
+          }}
         />
       </div>
     </div>
