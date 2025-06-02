@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ForumPostCard from "../cards/ForumPostCard";
 
 interface Session {
@@ -33,8 +34,9 @@ interface Props {
   activeSessions?: Session[];
 }
 
-function SessionHorizontalTab({ sessions }: {
+function SessionHorizontalTab({ sessions, onSessionClick }: {
   sessions: Session[];
+  onSessionClick: (sessionId: number) => void;
 }) {
   return (
     <div className="w-full overflow-hidden">
@@ -51,9 +53,12 @@ function SessionHorizontalTab({ sessions }: {
       >
         {sessions.map((session) => {
           return (
-            <div
+            <button
               key={session.id}
-              className="p-3 whitespace-nowrap flex-shrink-0 relative min-w-[140px] bg-slate-50"
+              onClick={() => onSessionClick(session.id)}
+              className={`p-3 whitespace-nowrap flex-shrink-0 relative min-w-[140px] hover:bg-gray-100 transition-colors cursor-pointer ${
+                session.isActive ? 'bg-gray-200' : 'bg-white'
+              }`}
             >
               {session.unreadPosts > 0 && (
                 <div className="absolute top-2 right-2 w-2 h-2 bg-orange-400 rounded-full"></div>
@@ -78,7 +83,7 @@ function SessionHorizontalTab({ sessions }: {
                   {session.title}
                 </div>
               </div>
-            </div>
+            </button>
           );
         })}
       </div>
@@ -87,10 +92,21 @@ function SessionHorizontalTab({ sessions }: {
 }
 
 export default function ForumTab({ activeSessions = defaultSessions }: Props) {
+  const [sessions, setSessions] = useState<Session[]>(activeSessions);
+
+  const handleSessionClick = (sessionId: number) => {
+    setSessions(prevSessions => 
+      prevSessions.map(session => ({
+        ...session,
+        isActive: session.id === sessionId
+      }))
+    );
+  };
+
   return (
     <div className="w-full">
       <div className=" mb-5">
-        <SessionHorizontalTab sessions={activeSessions} />
+        <SessionHorizontalTab sessions={sessions} onSessionClick={handleSessionClick} />
       </div>
         <ForumPostCard
           courseCode="D1234"
