@@ -10,7 +10,7 @@ import GradesTab from "../../components/course_session/GradesTab";
 
 export default function Course123Page() {
   const [activeTab, setActiveTab] = useState('Sessions');
-    const handleBackClick = () => {
+  const handleBackClick = () => {
     window.location.href = '/course';
   };
   const tabContent = () => {
