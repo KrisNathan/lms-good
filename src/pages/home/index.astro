@@ -1,64 +1,83 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import StudentStatus from "../../components/StudentStatus.astro";
-import ClassCard from "../../components/ClassCard.astro";
 import ClassSessionCard from "../../components/ClassSessionCard";
-import ForumPostCard from "../../components/ForumPostCard.astro";
-import ForumCard from "../../components/ForumPostCard.astro";
+import StudentStatCard from "../../components/StudentStatCard";
 ---
 
 <Layout>
   <div class="pt-6 mx-auto w-fit flex flex-col gap-5">
-
-    <div class="flex flex-col gap-5">
-      <div>
-        <div class="text-2xl font-medium mb-3">Student Course Dashboard</div>
-        <hr class="border-slate-200" />
+    <!-- Dashboard Header -->
+    <div>
+      <div class="text-2xl font-semibold text-gray-900 mb-3">
+        Student Course Dashboard
       </div>
-      <div class="flex flex-col gap-4">
-        <div class="flex flex-wrap-reverse gap-5">
-          <!-- <ClassCard
-            courseCode="COMP12345"
-            courseName="Data Structures"
-            instructor="Jeremy Zhang, M.Kom."
-          /> -->
-          <ClassSessionCard
-            client:load
-            title="Scientific Computing"
-            sessionNumber={10}
-            classCode="A0507"
-            timeSlot="07:20-09:00"
-            isOngoing={true}
-          />
+      <hr class="border-slate-200" />
+    </div>
+
+    <!-- Class Sessions -->
+    <div class="flex flex-col gap-4">
+      <ClassSessionCard
+        client:load
+        title="Scientific Computing"
+        sessionNumber={10}
+        totalSessions={16}
+        classCode="LQ01"
+        classStartTime="00:00"
+        classEndTime="23:59"
+        date="Today, June 14"
+        duration="1h 40m"
+        instructor="Dr. Sarah Chen"
+        topic="Advanced Data Structures & Algorithms"
+        location="Engineering Building, Room 201"
+        classroom="Classroom"
+        isOngoing={true}
+      />
+
+      <ClassSessionCard
+        client:load
+        title="Database Systems"
+        sessionNumber={5}
+        totalSessions={12}
+        classCode="LQ01"
+        classStartTime="10:00"
+        classEndTime="11:30"
+        date="Tomorrow, June 15"
+        duration="1h 30m"
+        instructor="Prof. John Smith"
+        topic="SQL Queries and Optimization"
+        location="Computer Lab 3"
+        classroom="Computer Lab"
+        isOngoing={false}
+      />
+    </div>
+
+    <!-- Student Status -->
+    <div class="flex flex-col gap-3">
+      <div>
+        <div class="text-2xl font-semibold text-gray-900 mb-3">
+          Student Status
         </div>
-
-        <ForumPostCard
-          courseCode="D1234"
-          professorName="Prof. Amogusussi Cappuccino"
-          professorTitle="Ph.D."
-          postTitle="Interacting or whatever"
-          postDate="3 May 2025"
-          replyCount={3}
-        />
-      </div>
-    </div>
-
-    <div class="flex flex-col gap-5">
-      <div>
-        <div class="text-2xl font-medium mb-3">Student Status</div>
         <hr class="border-slate-200" />
       </div>
-      <div class="flex flex-wrap mb-8 gap-5">
-        <StudentStatus title="Attendance Status" completed={10} total={10} />
-        <StudentStatus title="Exam Eligibility" completed={10} total={10} />
-        <StudentStatus
-          title="Assesments Due"
-          completed={10}
-          total={30}
-        />
+
+      <!-- The polished student stats layout -->
+      <div class="flex flex-wrap gap-6 mb-8 justify-center">
+        <div class="flex flex-wrap gap-6 justify-center mb-8">
+          <div class="flex flex-wrap gap-6 justify-center mb-8">
+            <StudentStatCard
+              title="Attendance Status"
+              status="warning"
+              note="2 attendances missing"
+            />
+            <StudentStatCard
+              title="Assessments Due"
+              status="critical"
+              note="3 assignments remaining"
+            />
+            <StudentStatCard title="Exam Eligibility" status="complete" note='eligible to Exam' />
+          </div>
+        </div>
       </div>
     </div>
-
-    
   </div>
 </Layout>
