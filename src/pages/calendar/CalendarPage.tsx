@@ -43,7 +43,7 @@ export default function CalendarPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="p-6 w-fit mx-auto">
+      <div className="pt-6 w-fit mx-auto">
         <div className="flex flex-wrap-reverse gap-6">
           <div className="flex-1">
             <div className="mb-6">
