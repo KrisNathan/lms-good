@@ -8,7 +8,7 @@ interface Props {
 
 export default function ClassCard({ courseCode, courseName, instructor, buttonText = 'View Class', onClick = () => { } }: Props) {
   return (
-    <button className="rounded-2xl border-slate-200 border-solid border-1 w-full overflow-hidden hover:border-orange-100 hover:cursor-pointer hover:animate-pulse text-left" onClick={onClick}>
+    <button className="rounded-2xl border-slate-200 border-solid border-1 w-full overflow-hidden hover:border-orange-100 hover:cursor-pointer hover:animate-pulse text-left min-w-72" onClick={onClick}>
       <div className="p-5">
         {courseCode}
       </div>
