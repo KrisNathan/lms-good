@@ -44,28 +44,28 @@ export default function CalendarPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="pt-6 w-fit mx-auto">
+        <button
+          onClick={handleBackClick}
+          className="mb-4 flex items-center text-gray-600 hover:text-gray-900 transition-colors"
+        >
+          <svg
+            className="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Back to Home
+        </button>
         <div className="flex flex-wrap-reverse gap-6">
           <div className="flex-1">
             <div className="mb-6">
-              <button
-                onClick={handleBackClick}
-                className="mb-4 flex items-center text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <svg
-                  className="w-5 h-5 mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-                Back to Home
-              </button>
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
                 Monday, 16 June 2025
               </h1>
