@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import StudentStatus from "../../components/StudentStatus.astro";
 import ClassCard from "../../components/ClassCard.astro";
-import ClassSessionCard from "../../components/ClassSessionCard.astro";
+import ClassSessionCard from "../../components/ClassSessionCard";
 import ForumPostCard from "../../components/ForumPostCard.astro";
 import ForumCard from "../../components/ForumPostCard.astro";
 ---
@@ -38,6 +38,7 @@ import ForumCard from "../../components/ForumPostCard.astro";
             instructor="Jeremy Zhang, M.Kom."
           />
           <ClassSessionCard
+            client:load
             title="Scientific Computing"
             sessionNumber={10}
             classCode="A0507"
