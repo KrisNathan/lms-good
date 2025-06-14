@@ -50,7 +50,7 @@ export default function Course123Page() {
               d="M15 19l-7-7 7-7" 
             />
           </svg>
-          Back to Course
+          Back to Course List
         </button>
       <ClassCard
         courseCode="AIUEO"

@@ -3,6 +3,33 @@ import ClassCard from "../../components/ClassCard";
 import { useState } from 'react';
 
 
+const courses = [
+  {
+    code: 'AIUEO',
+    name: 'Data Structures',
+    instructor: 'Prof. Dr. Ir. Jeremy Zhang, Ph.D.',
+    link: '/course/course123'
+  },
+  {
+    code: 'AIUEO',
+    name: 'Data Structures',
+    instructor: 'Prof. Dr. Ir. Jeremy Zhang, Ph.D.',
+    link: '/course/course123'
+  },
+  {
+    code: 'AIUEO',
+    name: 'Data Structures',
+    instructor: 'Prof. Dr. Ir. Jeremy Zhang, Ph.D.',
+    link: '/course/course123'
+  },
+  {
+    code: 'AIUEO',
+    name: 'Data Structures',
+    instructor: 'Prof. Dr. Ir. Jeremy Zhang, Ph.D.',
+    link: '/course/course123'
+  },
+];
+
 export default function CourseListPage() {
   const [activeTab, setActiveTab] = useState('All');
   const handleBackClick = () => {
@@ -35,30 +62,19 @@ export default function CourseListPage() {
           <HorizontalTab activeTab={activeTab} setActiveTab={setActiveTab} tabs={["All", "CL", "LAB", "LEC"]} />
         </div>
         <div className="md:min-w-xl sm:w-fit flex flex-col gap-5 items-center">
-          <ClassCard
-            courseCode="AIUEO"
-            courseName="Data Structures"
-            instructor="Skibidi Philip, M.Kom."
-            onClick={() => {
-              window.location.href = "/course/course123";
-            }}
-          />
-          <ClassCard
-            courseCode="AIUEO"
-            courseName="Data Structures"
-            instructor="Skibidi Philip, M.Kom."
-            onClick={() => {
-              window.location.href = "/course/course123";
-            }}
-          />
-          <ClassCard
-            courseCode="AIUEO"
-            courseName="Data Structures"
-            instructor="Skibidi Philip, M.Kom."
-            onClick={() => {
-              window.location.href = "/course/course123";
-            }}
-          />
+          {
+            courses.map((course) => (
+              <ClassCard
+                courseCode={course.code}
+                courseName={course.name}
+                instructor={course.instructor}
+                buttonText="View Course"
+                onClick={() => {
+                  window.location.href = course.link;
+                }}
+              />
+            ))
+          }
         </div>
 
       </div>
