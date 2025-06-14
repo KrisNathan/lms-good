@@ -56,7 +56,7 @@ export default function Course123Page() {
         courseCode="AIUEO"
         courseName="Data Structures"
         instructor="Skibidi Philip, M.Kom."
-        onClick={() => window.location.href = '/course'}
+        onClick={() => {}}
       />
       <HorizontalTab tabs={['Sessions', 'Syllabus', 'Assignment', 'Forum', 'People', 'Grades']} activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="flex flex-col p-5 gap-5 border-solid border-1 border-slate-200 rounded-2xl">
