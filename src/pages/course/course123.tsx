@@ -32,7 +32,7 @@ export default function Course123Page() {
   }
 
   return (
-    <div className="flex flex-col gap-5 mx-32">
+    <div className="pt-6 flex flex-col gap-5">
       <button
           onClick={handleBackClick}
           className="mb-4  flex items-center text-gray-600 hover:text-gray-900 transition-colors"
