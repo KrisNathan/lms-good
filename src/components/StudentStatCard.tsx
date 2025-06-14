@@ -17,7 +17,7 @@ const StudentStatCard: React.FC<StudentStatCardProps> = ({ title, status, note }
   const config = statusConfig[status];
 
   return (
-    <div className="flex flex-col items-center justify-between bg-white border border-slate-200 rounded-2xl shadow-sm w-48 h-52 hover:shadow-md transition-shadow p-4">
+    <div className="flex flex-col flex-1 items-center justify-between bg-white border border-slate-200 rounded-2xl shadow-sm w-48 h-52 hover:shadow-md transition-shadow p-4">
       <div className="text-base font-semibold text-gray-900 text-center">{title}</div>
 
       <div className="flex flex-col items-center justify-center flex-grow">
