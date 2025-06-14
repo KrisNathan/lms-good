@@ -12,13 +12,13 @@ import ForumCard from "../../components/ForumPostCard.astro";
     <div class="flex flex-col gap-5">
       <div>
         <div class="text-2xl font-medium mb-3">Student Status</div>
-        <hr />
+        <hr class="border-slate-200" />
       </div>
-      <div class="flex min-w-3xl w-fit mb-8 gap-5">
+      <div class="flex flex-wrap mb-8 gap-5">
         <StudentStatus title="Attendance Status" completed={10} total={10} />
         <StudentStatus title="Exam Eligibility" completed={10} total={10} />
         <StudentStatus
-          title="Assesment to be Submit"
+          title="Assesments Due"
           completed={10}
           total={30}
         />
@@ -28,10 +28,10 @@ import ForumCard from "../../components/ForumPostCard.astro";
     <div class="flex flex-col gap-5">
       <div>
         <div class="text-2xl font-medium mb-3">Student Course Dashboard</div>
-        <hr />
+        <hr class="border-slate-200" />
       </div>
       <div class="flex flex-col gap-4">
-        <div class="flex gap-5">
+        <div class="flex flex-wrap-reverse gap-5">
           <ClassCard
             courseCode="COMP12345"
             courseName="Data Structures"
