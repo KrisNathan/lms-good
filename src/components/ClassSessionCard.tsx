@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Calendar, Clock, MapPin, Users, CheckCircle, Circle } from "lucide-react";
+import InlineNotif from "./notif/InlineNotif";
 
 interface ClassSessionCardProps {
   title: string;
@@ -103,7 +104,7 @@ const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
           <span>{Math.round((sessionNumber / totalSessions) * 100)}% Complete</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
-          <div 
+          <div
             className="bg-blue-500 h-2 rounded-full transition-all duration-300"
             style={{ width: `${(sessionNumber / totalSessions) * 100}%` }}
           ></div>
@@ -153,9 +154,8 @@ const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
 
           <div
             onClick={handleAttendanceClick}
-            className={`w-full py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer select-none ${
-              isAttended ? 'bg-green-500 hover:bg-green-600 text-white' : 'bg-blue-500 hover:bg-blue-600 text-white'
-            }`}
+            className={`w-full py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer select-none ${isAttended ? 'bg-green-500 hover:bg-green-600 text-white' : 'bg-blue-500 hover:bg-blue-600 text-white'
+              }`}
           >
             {isAttended ? (
               <>
@@ -169,10 +169,10 @@ const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
           </div>
 
           {isAttended && (
-            <div className="p-3 bg-green-50 rounded-lg flex items-center gap-2 mt-3">
-              <CheckCircle size={16} className="text-green-600" />
-              <span className="text-sm text-green-700">Your attendance has been recorded for this session.</span>
-            </div>
+            <InlineNotif
+              variant="success"
+              message="Your attendance has been recorded for this session." 
+            />
           )}
         </>
       )}
