@@ -42,7 +42,7 @@ export default function CalendarPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <div className="pt-6 w-fit mx-auto">
         <button
           onClick={handleBackClick}
