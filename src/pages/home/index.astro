@@ -9,21 +9,6 @@ import ForumCard from "../../components/ForumPostCard.astro";
 
 <Layout>
   <div class="pt-6 mx-auto w-fit flex flex-col gap-5">
-    <div class="flex flex-col gap-5">
-      <div>
-        <div class="text-2xl font-medium mb-3">Student Status</div>
-        <hr class="border-slate-200" />
-      </div>
-      <div class="flex flex-wrap mb-8 gap-5">
-        <StudentStatus title="Attendance Status" completed={10} total={10} />
-        <StudentStatus title="Exam Eligibility" completed={10} total={10} />
-        <StudentStatus
-          title="Assesments Due"
-          completed={10}
-          total={30}
-        />
-      </div>
-    </div>
 
     <div class="flex flex-col gap-5">
       <div>
@@ -32,11 +17,11 @@ import ForumCard from "../../components/ForumPostCard.astro";
       </div>
       <div class="flex flex-col gap-4">
         <div class="flex flex-wrap-reverse gap-5">
-          <ClassCard
+          <!-- <ClassCard
             courseCode="COMP12345"
             courseName="Data Structures"
             instructor="Jeremy Zhang, M.Kom."
-          />
+          /> -->
           <ClassSessionCard
             client:load
             title="Scientific Computing"
@@ -57,5 +42,23 @@ import ForumCard from "../../components/ForumPostCard.astro";
         />
       </div>
     </div>
+
+    <div class="flex flex-col gap-5">
+      <div>
+        <div class="text-2xl font-medium mb-3">Student Status</div>
+        <hr class="border-slate-200" />
+      </div>
+      <div class="flex flex-wrap mb-8 gap-5">
+        <StudentStatus title="Attendance Status" completed={10} total={10} />
+        <StudentStatus title="Exam Eligibility" completed={10} total={10} />
+        <StudentStatus
+          title="Assesments Due"
+          completed={10}
+          total={30}
+        />
+      </div>
+    </div>
+
+    
   </div>
 </Layout>

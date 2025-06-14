@@ -37,7 +37,7 @@ const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
   };
 
   return (
-    <div className="font-sans bg-white rounded-2xl p-5 border-solid border-1 border-slate-200 max-w-[450px] flex-1 relative">
+    <div className="font-sans bg-white rounded-2xl p-5 border-solid border-1 border-slate-200 max-w-[500px] flex-1 relative">
       {isOngoing && (
         <div className="text-red-600 font-bold mb-1 text-base">ONGOING NOW</div>
       )}
