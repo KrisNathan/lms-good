@@ -1,11 +1,26 @@
 import AssignmentCard from "../cards/AssignmentCard";
 
-
 export default function AssignmentTab() {
-  return <>
-    <AssignmentCard />
-    <AssignmentCard />
-    <AssignmentCard />
-    <AssignmentCard />
-  </>;
+  return (
+    <>
+      <AssignmentCard
+        title="Project Report: Sorting Algorithm"
+        dueDate="20 June 2025"
+        status="pending"
+        onClick={() => {}}
+      />
+      <AssignmentCard
+        title="Project Report: Sorting Algorithm"
+        dueDate="20 June 2025"
+        status="pending"
+        onClick={() => {}}
+      />
+      <AssignmentCard
+        title="Project Report: Sorting Algorithm"
+        dueDate="20 June 2025"
+        status="pending"
+        onClick={() => {}}
+      />
+    </>
+  );
 }

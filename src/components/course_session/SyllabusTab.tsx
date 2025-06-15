@@ -7,23 +7,30 @@ const syllabuses: string[] = [
 ];
 
 export default function SyllabusTab() {
-  return <>
-    <div>This course comprises the human factors in interactive software, theories, principles and guidance in interface development, interface components, interface styles, disciplines associated with design and evaluation of user interface in order to support the usability. This course gives students the ability to design and evaluate the user interface.</div>
-    <div className="flex flex-col gap-2 rounded-2xl border-solid border-1 border-slate-200 p-5">
-      <div>
-        <div className="font-semibold">Learning Outcomes</div>
-        <div>
-          On successful completion of this course, student will be able to:
-        </div>
-      </div>
-      <ol className="flex flex-col gap-1">
-        {syllabuses.map((syl) => (
-          <li>
-            {syl}
-          </li>
-        ))}
-      </ol>
+  return (
+    <div className="flex flex-col gap-6">
 
+      {/* Course Description */}
+      <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900 mb-3">Course Description</h2>
+        <p className="text-gray-700 text-sm leading-relaxed">
+          This course comprises the human factors in interactive software, theories, principles and guidance in interface development, interface components, interface styles, disciplines associated with design and evaluation of user interface in order to support the usability. This course gives students the ability to design and evaluate the user interface.
+        </p>
+      </div>
+
+      {/* Learning Outcomes */}
+      <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900 mb-3">Learning Outcomes</h2>
+        <p className="text-gray-700 text-sm mb-4">On successful completion of this course, students will be able to:</p>
+
+        <ol className="flex flex-col gap-3">
+          {syllabuses.map((syl, index) => (
+            <li key={index} className="bg-blue-50 text-blue-900 p-3 rounded-lg border border-blue-100 text-sm">
+              {syl}
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
-  </>
+  )
 }
