@@ -1,5 +1,7 @@
+import Gradebook from "../cards/Gradebook"
+
 export default function GradesTab() {
   return <>
-    Coming Soon.
+    <Gradebook />
   </>
 }
