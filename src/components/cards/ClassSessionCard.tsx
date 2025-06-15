@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Calendar, Clock, MapPin, Users, CheckCircle, Circle } from "lucide-react";
-import InlineNotif from "./notif/InlineNotif";
+import InlineNotif from "../notif/InlineNotif";
 
 interface ClassSessionCardProps {
   title: string;
