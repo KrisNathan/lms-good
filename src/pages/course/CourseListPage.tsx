@@ -47,7 +47,6 @@ const courses = [
   }
 ];
 
-
 export default function CourseListPage() {
   const [activeTab, setActiveTab] = useState('All');
   const handleBackClick = () => {
@@ -86,7 +85,6 @@ export default function CourseListPage() {
             courseCode={course.code}
             courseName={course.name}
             instructor={course.instructor}
-            buttonText="View Course"
             onClick={() => { window.location.href = course.link; }}
           />
         ))}

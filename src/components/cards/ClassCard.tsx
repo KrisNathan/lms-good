@@ -2,31 +2,27 @@ interface Props {
   courseCode: string;
   courseName: string;
   instructor: string;
-  buttonText?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function ClassCard({ courseCode, courseName, instructor, buttonText, onClick = () => { } }: Props) {
+export default function ClassCard({ courseCode, courseName, instructor, onClick = () => {} }: Props) {
   return (
-    <button className="rounded-2xl border-slate-200 border-solid border-1 w-full overflow-hidden hover:border-orange-100 hover:cursor-pointer shadow-sm bg-white hover:shadow-md text-left min-w-72" onClick={onClick}>
-      <div className="p-5">
+    <button 
+      className="w-full rounded-xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all text-left overflow-hidden min-h-56"
+      onClick={onClick}
+    >
+      {/* Header Code */}
+      <div className="px-5 py-4 text-sm font-medium text-gray-500 bg-slate-50 border-b border-slate-200">
         {courseCode}
       </div>
-      <div className="bg-orange-100 p-5 flex flex-col gap-5">
-        <div>
-          <h2 className="font-bold text-xl">{courseName}</h2>
-          <p className="">{instructor}</p>
-        </div>
 
-        {buttonText &&
-          <div className="rounded-3xl bg-white w-full flex flex-row py-3 px-5">
-            <div className="text-left">
-              {buttonText}
-            </div>
-            <span className="ml-auto">▶</span>
-          </div>
-        }
+      {/* Main Content */}
+      <div className="p-5 flex flex-col gap-4">
+        <div>
+          <h2 className="font-bold text-xl text-gray-900">{courseName}</h2>
+          <p className="text-gray-600">{instructor}</p>
+        </div>
       </div>
     </button>
-  )
+  );
 }
