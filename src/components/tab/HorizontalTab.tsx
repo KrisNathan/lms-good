@@ -1,35 +1,37 @@
 import { useState, useRef, useEffect } from "react";
 
-interface Props {
-  tabs: string[];
-  activeTab: string;
-  setActiveTab?: React.Dispatch<React.SetStateAction<string>>;
+interface Tab {
+  label: string;
+  count?: number;
 }
 
-export default function HorizontalTab({ activeTab, tabs, setActiveTab = () => '' }: Props) {
+interface Props {
+  tabs: Tab[];
+  activeTab: string;
+  onTabChange: (tab: string) => void;
+}
+
+export default function HorizontalTab({ tabs, activeTab, onTabChange }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
+
   // Handle horizontal scrolling with the mouse wheel
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
-    
+
     const handleWheel = (e: WheelEvent) => {
       if (scrollContainer) {
-        // Prevent the default vertical scroll
         e.preventDefault();
-        
-        // Scroll horizontally instead
         scrollContainer.scrollLeft += e.deltaY;
       }
     };
-    
+
     if (scrollContainer) {
-      scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
+      scrollContainer.addEventListener("wheel", handleWheel, { passive: false });
     }
-    
+
     return () => {
       if (scrollContainer) {
-        scrollContainer.removeEventListener('wheel', handleWheel);
+        scrollContainer.removeEventListener("wheel", handleWheel);
       }
     };
   }, []);
@@ -40,34 +42,29 @@ export default function HorizontalTab({ activeTab, tabs, setActiveTab = () => ''
         ref={scrollContainerRef}
         className="flex flex-row rounded-2xl border border-slate-200 overflow-x-auto max-w-full scrollbar-thin scroll-smooth"
         style={{
-          // Add custom scrollbar styling
-          scrollbarWidth: 'thin',
-          scrollbarColor: '#cbd5e1 #f1f5f9'
+          scrollbarWidth: "thin",
+          scrollbarColor: "#cbd5e1 #f1f5f9",
         }}
       >
-        {tabs.map((t, i) => (
-          t === activeTab ? (
+        {tabs.map((tab, i) => {
+          const isActive = tab.label === activeTab;
+          return (
             <button
               key={i}
-              id={`tab-${t}-tab`}
-              className="appearance-none p-2 bg-slate-100 hover:bg-slate-200 whitespace-nowrap flex-shrink-0 hover:cursor-pointer"
+              className={`appearance-none p-3 px-5 whitespace-nowrap flex-shrink-0 font-medium text-sm transition-colors rounded-md mx-1 ${
+                isActive ? "bg-blue-500 text-white" : "hover:bg-slate-100 text-gray-700"
+              }`}
+              onClick={() => onTabChange(tab.label)}
             >
-              {t}
+              {tab.label}
+              {tab.count !== undefined && (
+                <span className={`ml-2 text-xs font-semibold ${isActive ? "text-white" : "text-gray-500"}`}>
+                  ({tab.count})
+                </span>
+              )}
             </button>
-          ) : (
-            <button
-              key={i}
-              id={`tab-${t}-tab`}
-              className="appearance-none p-2 hover:bg-slate-200 whitespace-nowrap flex-shrink-0 hover:cursor-pointer"
-              onClick={() => {
-                const prevTab = activeTab;
-                setActiveTab(t);
-              }}
-            >
-              {t}
-            </button>
-          )
-        ))}
+          );
+        })}
       </div>
     </div>
   );
