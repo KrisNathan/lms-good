@@ -1,15 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Home, Calendar, BookOpen, HelpCircle, UserCircle } from "lucide-react";
 
 export default function NavSidebar({ children }: { children: React.ReactNode }) {
-  const [sidebarExpanded, setSidebarExpanded] = useState(false);
-
-  useEffect(() => {
+  const [sidebarExpanded, setSidebarExpanded] = useState(() => {
     if (typeof window !== "undefined") {
-      const savedState = localStorage.getItem("sidebarExpanded") === "true";
-      setSidebarExpanded(savedState);
+      return localStorage.getItem("sidebarExpanded") === "true";
     }
-  }, []);
+    return false;
+  });
 
   const toggleSidebar = () => {
     const newState = !sidebarExpanded;
@@ -17,8 +15,8 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
     localStorage.setItem("sidebarExpanded", String(newState));
   };
 
-  const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
-  const normalizePath = (path: string) => (path === "/" ? "/home" : path);
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+  const normalizePath = (path: string) => (path === '/' ? '/home' : path);
   const currentPath = normalizePath(pathname);
 
   const navItems = [
@@ -91,8 +89,8 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
         </main>
       </div>
 
-      {/* Mobile Bottom Nav */}
-      <nav className="fixed bottom-0 w-full bg-white border-t border-gray-200 shadow-md md:hidden z-50">
+      {/* Bottom Nav for Mobile */}
+      <nav className="fixed bottom-0 w-full bg-white border-t border-gray-200 shadow-md md:hidden">
         <ul className="flex justify-around py-2">
           {navItems.map((item) => {
             const isActive = currentPath.startsWith(item.path);
@@ -107,7 +105,6 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
           })}
         </ul>
       </nav>
-
     </div>
   );
 }
