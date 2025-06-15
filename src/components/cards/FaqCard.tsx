@@ -14,7 +14,7 @@ export default function FAQCard({ title, details }: FAQCardProps) {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white border border-black rounded-lg overflow-hidden">
+    <div className="w-full max-w-2xl mx-auto bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm">
       <button
         onClick={toggleOpen}
         className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-inset"
@@ -31,7 +31,7 @@ export default function FAQCard({ title, details }: FAQCardProps) {
       </button>
       
       {isOpen && (
-        <div className="px-6 py-4 border-t border-black bg-white">
+        <div className="px-6 py-4 border-t border-slate-200 bg-white">
           <p className="text-black leading-relaxed">{details}</p>
         </div>
       )}

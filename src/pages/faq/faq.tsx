@@ -19,7 +19,7 @@ const handleBackClick = () => {
 };
 export default function FAQ() {
   return (
-    <div className="w-full max-w-4xl mx-auto p-6">
+    <div className="pt-6 w-full max-w-4xl mx-auto p-6">
       <button
           onClick={handleBackClick}
           className="mb-4 ml-20 flex items-center text-gray-600 hover:text-gray-900 transition-colors"
