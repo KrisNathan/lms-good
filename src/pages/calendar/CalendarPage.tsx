@@ -43,7 +43,7 @@ export default function CalendarPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-10 pb-10">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sessions */}
           <div className="flex-1">
