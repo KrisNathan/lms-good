@@ -46,9 +46,9 @@ export default function Course123Page() {
       </button>
 
       <ClassCard
-        courseCode="AIUEO"
-        courseName="Data Structures"
-        instructor="Skibidi Philip, M.Kom."
+        courseCode="CS101"
+        courseName="Introduction to Computer Science"
+        instructor="Dr. Alice Johnson"
         onClick={() => {}}
       />
 

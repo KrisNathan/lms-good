@@ -8,20 +8,21 @@ interface Props {
 export default function ClassCard({ courseCode, courseName, instructor, onClick = () => {} }: Props) {
   return (
     <button 
-      className="w-full rounded-xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all text-left overflow-hidden min-h-56"
+      className="w-full h-56 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-400 transition-all duration-300 text-left overflow-hidden focus:outline-none flex flex-col"
       onClick={onClick}
     >
-      {/* Header Code */}
-      <div className="px-5 py-4 text-sm font-medium text-gray-500 bg-slate-50 border-b border-slate-200">
+      {/* Code Header with gradient accent */}
+      <div className="px-5 py-3 text-sm font-semibold text-blue-600 bg-blue-50 border-b border-slate-200 flex-shrink-0">
         {courseCode}
       </div>
 
       {/* Main Content */}
-      <div className="p-5 flex flex-col gap-4">
-        <div>
-          <h2 className="font-bold text-xl text-gray-900">{courseName}</h2>
-          <p className="text-gray-600">{instructor}</p>
-        </div>
+      <div className="p-5 flex flex-col flex-1 min-h-0">
+        <h2 className="font-bold text-xl text-gray-900 leading-snug break-words line-clamp-3 mb-3">
+          {courseName}
+        </h2>
+        
+        <p className="text-sm text-gray-500 mt-auto">{instructor}</p>
       </div>
     </button>
   );
