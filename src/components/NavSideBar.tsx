@@ -27,10 +27,11 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
 
   return (
     <div className="flex flex-col h-screen font-sans bg-gray-50 text-gray-900">
-      {/* Navbar */}
+
+      {/* Navbar (top bar) */}
       <header className="flex justify-between items-center h-16 px-6 bg-white border-b border-gray-200 shadow-sm fixed w-full z-50">
         <div className="flex items-center gap-4">
-          <button onClick={toggleSidebar} className="flex flex-col justify-between w-7 h-5">
+          <button onClick={toggleSidebar} className="hidden md:flex flex-col justify-between w-7 h-5">
             <span className="block h-[3px] bg-gray-700 rounded"></span>
             <span className="block h-[3px] bg-gray-700 rounded"></span>
             <span className="block h-[3px] bg-gray-700 rounded"></span>
@@ -46,10 +47,9 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
       </header>
 
       <div className="flex pt-16">
-        {/* Sidebar */}
-        <aside
-          className={`bg-white border-r border-gray-200 shadow-sm transition-all duration-300 ${sidebarExpanded ? "w-60" : "w-20"}`}
-        >
+
+        {/* Sidebar for Desktop */}
+        <aside className={`hidden md:block bg-white border-r border-gray-200 shadow-sm transition-all duration-300 ${sidebarExpanded ? "w-60" : "w-20"}`}>
           <nav className="py-4">
             <ul className="flex flex-col gap-2">
               {navItems.map((item) => {
@@ -66,8 +66,7 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
                       {item.icon}
                       <span
                         className={`font-medium transition-all duration-300 overflow-hidden
-                          ${sidebarExpanded ? "opacity-100 w-auto ml-2" : "opacity-0 w-0 ml-0"}
-                        `}
+                          ${sidebarExpanded ? "opacity-100 w-auto ml-2" : "opacity-0 w-0 ml-0"}`}
                       >
                         {item.label}
                       </span>
@@ -79,9 +78,26 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
           </nav>
         </aside>
 
-        {/* Main content */}
+        {/* Main Content */}
         <main className="flex-1 p-6 overflow-y-auto">{children}</main>
       </div>
+
+      {/* Bottom Nav for Mobile */}
+      <nav className="fixed bottom-0 w-full bg-white border-t border-gray-200 shadow-md md:hidden">
+        <ul className="flex justify-around py-2">
+          {navItems.map((item) => {
+            const isActive = currentPath.startsWith(item.path);
+            return (
+              <li key={item.path}>
+                <a href={item.path} className={`flex flex-col items-center text-sm ${isActive ? "text-blue-600" : "text-gray-600"}`}>
+                  {item.icon}
+                  <span className="mt-1">{item.label}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
     </div>
   );
 }
