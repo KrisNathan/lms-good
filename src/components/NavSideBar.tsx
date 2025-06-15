@@ -62,7 +62,7 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
         </nav>
       </aside>
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col w-full">
 
         {/* Navbar */}
         <header className="flex justify-between items-center h-16 px-6 bg-white border-b border-gray-200 shadow-sm fixed top-0 left-0 right-0 z-50">
@@ -80,14 +80,14 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
               <UserCircle size={28} />
             </div>
           </div>
-        </header>
-
-        {/* Main Content */}
+        </header>        {/* Main Content */}
         <main
-          className={`pt-20 px-6 transition-all duration-300 w-full`}
-          style={{ marginLeft: sidebarExpanded ? "15rem" : "5rem" }}
+          className={`pt-20 transition-all duration-300 flex flex-row`}
         >
-          {children}
+          <div className={`transition-all duration-300 ${sidebarExpanded ? 'md:w-60' : 'md:w-20'}`}></div>
+          <div className="flex-1 min-w-0 px-5">
+            {children}
+          </div>
         </main>
       </div>
 

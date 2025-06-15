@@ -34,7 +34,7 @@ export default function Course123Page() {
   };
 
   return (
-    <div className="pt-6 flex flex-col gap-5">
+    <div className="pt-6 flex flex-col gap-5 w-full">
       <button
         onClick={handleBackClick}
         className="mb-4 flex items-center text-gray-600 hover:text-gray-900 transition-colors"
@@ -54,7 +54,7 @@ export default function Course123Page() {
 
       <HorizontalTab tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <div className="flex flex-col p-5 gap-5 border border-slate-200 rounded-2xl">
+      <div className="flex flex-col p-5 gap-5 border border-slate-200 rounded-2xl w-full">
         {tabComponents[activeTab]}
       </div>
     </div>
