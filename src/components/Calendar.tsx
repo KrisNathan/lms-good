@@ -19,7 +19,7 @@ const Calendar: React.FC = () => {
     const startingDayOfWeek = firstDay.getDay();
 
     const days = [];
-    
+
     for (let i = startingDayOfWeek - 1; i >= 0; i--) {
       const prevMonthDay = new Date(year, month, -i);
       days.push({
@@ -29,7 +29,7 @@ const Calendar: React.FC = () => {
         fullDate: prevMonthDay
       });
     }
-    
+
     for (let day = 1; day <= daysInMonth; day++) {
       const isToday = day === 16 && month === 5 && year === 2025;
       days.push({
@@ -39,7 +39,7 @@ const Calendar: React.FC = () => {
         fullDate: new Date(year, month, day)
       });
     }
-    
+
     const remainingDays = 42 - days.length;
     for (let day = 1; day <= remainingDays; day++) {
       const nextMonthDay = new Date(year, month + 1, day);
@@ -50,7 +50,7 @@ const Calendar: React.FC = () => {
         fullDate: nextMonthDay
       });
     }
-    
+
     return days;
   };
 
@@ -69,28 +69,24 @@ const Calendar: React.FC = () => {
   const days = getDaysInMonth(currentDate);
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">
+    <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-md">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-xl font-bold text-gray-900">
           {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
         </h2>
         <div className="flex items-center space-x-2">
-          <button
-            onClick={() => navigateMonth('prev')}
-            className="p-1 hover:bg-gray-100 rounded"
-          >
+          <button onClick={() => navigateMonth('prev')} className="p-1 hover:bg-gray-100 rounded">
             <ChevronLeft className="w-5 h-5 text-gray-600" />
           </button>
-          <button
-            onClick={() => navigateMonth('next')}
-            className="p-1 hover:bg-gray-100 rounded"
-          >
+          <button onClick={() => navigateMonth('next')} className="p-1 hover:bg-gray-100 rounded">
             <ChevronRight className="w-5 h-5 text-gray-600" />
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-1 mb-2">
+      {/* Weekdays */}
+      <div className="grid grid-cols-7 gap-1 mb-3">
         {daysOfWeek.map((day, index) => (
           <div
             key={day}
@@ -103,14 +99,15 @@ const Calendar: React.FC = () => {
         ))}
       </div>
 
+      {/* Calendar Grid */}
       <div className="grid grid-cols-7 gap-1">
         {days.map((day, index) => (
           <div
             key={index}
             className={`
-              text-center p-2 text-sm cursor-pointer rounded
+              text-center p-2 text-sm cursor-pointer rounded transition
               ${!day.isCurrentMonth ? 'text-gray-400' : 'text-gray-900'}
-              ${day.isToday ? 'bg-blue-400':'hover:bg-gray-100'}
+              ${day.isToday ? 'bg-blue-500 text-white font-semibold' : 'hover:bg-gray-100'}
             `}
           >
             {day.date}

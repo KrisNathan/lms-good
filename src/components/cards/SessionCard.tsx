@@ -1,58 +1,90 @@
+import { MapPin, Clock, Layers, Monitor, Calendar, Users } from 'lucide-react';
 import React from 'react';
 
 interface SessionCardProps {
+  classId: string;
   title: string;
   format: string;
   session: string;
   room: string;
   time: string;
   category: string;
+  date?: string;
+  instructor?: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const SessionCard: React.FC<SessionCardProps> = ({
+  classId,
   title,
   format,
   session,
   room,
   time,
   category,
+  date,
+  instructor,
   onClick = () => {},
 }) => {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm hover:shadow-md hover:cursor-pointer transition-shadow"
+    <div 
+      className="bg-white border border-blue-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition cursor-pointer relative"
       onClick={onClick}
     >
-      <div className="flex justify-between items-start mb-3">
-        <h3 className="text-lg font-semibold text-gray-900 leading-tight">{title}</h3>
-        <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+      {/* Class ID and Badge in one row */}
+      <div className="flex justify-between items-center mb-2">
+        <span className="text-base font-medium text-gray-700">{classId}</span>
+        <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap">
           Onsite
         </span>
       </div>
 
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <img className="w-4 h-4" src="f2f-icon.png"/>
-            <span className="text-gray-600 text-sm ml-2">{format}</span>
+      {/* Title */}
+      <h3 className="text-lg font-bold text-gray-900 break-words mb-4">
+        {title}
+      </h3>
+
+      <div className="space-y-3 text-sm text-gray-700">
+        {date && (
+          <div className="flex items-center gap-2">
+            <Calendar size={18} className="text-blue-500" />
+            <span>{date}</span>
           </div>
-          <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">{category}</span>
+        )}
+
+        <div className="flex items-center gap-2">
+          <Monitor size={18} className="text-blue-500" />
+          <span>{format}</span>
         </div>
 
-        <div className="flex items-center">
-          <img className="w-4 h-4" src="session-icon.png"/>
-          <span className="text-gray-600 text-sm ml-2">{session}</span>
+        <div className="flex items-center gap-2">
+          <Layers size={18} className="text-blue-500" />
+          <span>{session}</span>
         </div>
 
-        <div className="flex items-center">
-          <img className="w-4 h-4" src="location-icon.png"/>
-          <span className="text-gray-600 text-sm ml-2">{room}</span>
+        <div className="flex items-center gap-2">
+          <MapPin size={18} className="text-orange-500" />
+          <span>{room}</span>
         </div>
 
-        <div className="flex items-center">
-          <img className="w-4 h-4" src="clock-icon.png"/>
-          <span className="text-gray-600 text-sm ml-2">{time}</span>
+        <div className="flex items-center gap-2">
+          <Clock size={18} className="text-green-500" />
+          <span>{time}</span>
         </div>
+
+        {instructor && (
+          <div className="flex items-center gap-2">
+            <Users size={18} className="text-purple-500" />
+            <span>{instructor}</span>
+          </div>
+        )}
+      </div>
+
+      {/* Bottom-right Category Badge */}
+      <div className="absolute bottom-4 right-4">
+        <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-md text-xs font-medium whitespace-nowrap">
+          {category}
+        </span>
       </div>
     </div>
   );
