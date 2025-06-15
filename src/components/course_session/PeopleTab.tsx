@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PeopleCard from '../cards/PeopleCard';
 import GroupCard from '../cards/GroupCard';
-import TabSwitcher from '../TabSwitcher';
+import TabSwitcher from '../tab/TabSwitcher';
 
 export default function PeopleTab() {
   const [activeTab, setActiveTab] = useState('Students');

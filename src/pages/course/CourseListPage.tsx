@@ -1,5 +1,5 @@
 import HorizontalTab from "../../components/tab/HorizontalTab";
-import ClassCard from "../../components/ClassCard";
+import ClassCard from "../../components/cards/ClassCard";
 import { useState } from 'react';
 
 
