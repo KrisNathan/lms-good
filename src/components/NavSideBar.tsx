@@ -35,7 +35,7 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
             <span className="block h-[3px] bg-gray-700 rounded"></span>
             <span className="block h-[3px] bg-gray-700 rounded"></span>
           </button>
-          <a href="/home" className="text-2xl font-bold text-gray-900">BINUS</a>
+          <a href="/home" className="text-2xl font-bold text-gray-900">SUNIB</a>
         </div>
         <div className="flex items-center gap-6">
           <a href="/faq"><HelpCircle size={28} /></a>
