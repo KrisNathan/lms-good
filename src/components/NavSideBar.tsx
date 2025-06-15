@@ -21,7 +21,7 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
 
   const navItems = [
     { label: "Home", path: "/home", icon: <Home size={24} /> },
-    { label: "Calendar", path: "/calendar", icon: <Calendar size={24} /> },
+    { label: "Schedule", path: "/calendar", icon: <Calendar size={24} /> },
     { label: "Courses", path: "/course", icon: <BookOpen size={24} /> },
   ];
 
