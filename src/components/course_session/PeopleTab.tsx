@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import PeopleCard from '../cards/PeopleCard';
+import GroupCard from '../cards/GroupCard';
+import TabSwitcher from '../tab/TabSwitcher';
 
 export default function PeopleTab() {
   const [activeTab, setActiveTab] = useState('Students');
@@ -28,74 +30,53 @@ export default function PeopleTab() {
   ];
 
   const groups = [
-    { name: "Group Sigma", nim: "GRP001" },
-    { name: "Group Beta", nim: "GRP002" }
-  ];
+  { name: "Group Sigma", id: "GRP001", members: students.slice(0, 5).map(s => ({ ...s, profilePhoto: "/user-icon.png" })) },
+  { name: "Group Beta", id: "GRP002", members: students.slice(5, 10).map(s => ({ ...s, profilePhoto: "/user-icon.png" })) },
+  { name: "Group Charlie", id: "GRP003", members: students.slice(10, 15).map(s => ({ ...s, profilePhoto: "/user-icon.png" })) },
+  { name: "Group Delta", id: "GRP004", members: students.slice(15, 20).map(s => ({ ...s, profilePhoto: "/user-icon.png" })) },
+  { name: "Group Echo", id: "GRP005", members: students.slice(0, 5).map(s => ({ ...s, profilePhoto: "/user-icon.png" })) },
+  { name: "Group Foxtrot", id: "GRP006", members: students.slice(5, 10).map(s => ({ ...s, profilePhoto: "/user-icon.png" })) },
+  { name: "Group Golf", id: "GRP007", members: students.slice(10, 15).map(s => ({ ...s, profilePhoto: "/user-icon.png" })) },
+  { name: "Group Hotel", id: "GRP008", members: students.slice(15, 20).map(s => ({ ...s, profilePhoto: "/user-icon.png" })) },
+];
+
 
   const lecturers = [
     { name: "Dr. Danielson", nim: "LEC001" },
     { name: "Prof. Daniel", nim: "LEC002" }
   ];
 
-  const getCurrentData = () => {
-    switch (activeTab) {
-      case 'Students':
-        return students;
-      case 'Groups':
-        return groups;
-      case 'Lecturers':
-        return lecturers;
-      default:
-        return students;
+  const tabs = [
+    { label: 'Lecturers', count: lecturers.length },
+    { label: 'Students', count: students.length },
+    { label: 'Groups', count: groups.length },
+  ];
+
+  const renderCards = () => {
+    if (activeTab === 'Groups') {
+      return groups.map((group, index) => (
+        <GroupCard key={index} name={group.name} id={group.id} members={group.members} />
+      ));
+    } else if (activeTab === 'Students') {
+      return students.map((person, index) => (
+        <PeopleCard key={index} name={person.name} nim={person.nim} />
+      ));
+    } else if (activeTab === 'Lecturers') {
+      return lecturers.map((person, index) => (
+        <PeopleCard key={index} name={person.name} nim={person.nim} />
+      ));
     }
+    return null;
   };
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-        {activeTab}
-      </h1>
-      <div className="flex justify-center mb-8">
-        <div className="flex bg-white rounded-lg shadow-md p-1">
-          {['Students', 'Groups', 'Lecturers'].map((tab) => {
-            let count = 0;
-            switch (tab) {
-              case 'Students':
-                count = students.length;
-                break;
-              case 'Groups':
-                count = groups.length;
-                break;
-              case 'Lecturers':
-                count = lecturers.length;
-                break;
-            }
-            return (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-6 py-3 rounded-md font-medium transition-all duration-200 flex flex-col items-center ${
-                  activeTab === tab
-                    ? 'bg-blue-500 text-white shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`}
-              >
-                <span className="text-lg font-bold">{count}</span>
-                <span className="text-sm">{tab}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
+      <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">{activeTab}</h1>
+
+      <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
-        {getCurrentData().map((person, index) => (
-          <PeopleCard 
-            key={index}
-            name={person.name}
-            nim={person.nim}
-          />
-        ))}
+        {renderCards()}
       </div>
     </div>
   );

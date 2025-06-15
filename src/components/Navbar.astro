@@ -2,198 +2,139 @@
 import { Home, Calendar, BookOpen, HelpCircle, UserCircle } from 'lucide-react';
 ---
 
-<div class="classroom-container">
-  <!-- NAVBAR -->
-  <header class="top-navbar">
-    <div class="navbar-left">
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Sidebar">
-        <span></span><span></span><span></span>
-      </button>
-      <div class="app-logo">
-        <a href="/home"><span class="app-title">BINUS</span></a>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Pre-inject sidebar state before Astro renders -->
+    <script is:inline>
+      (function() {
+        try {
+          const expanded = localStorage.getItem('sidebarExpanded') === 'true';
+          if (expanded) {
+            document.documentElement.classList.add('sidebar-expanded');
+          }
+        } catch(e) {}
+      })();
+    </script>
+
+    <title>BINUS</title>
+  </head>
+
+  <body class="classroom-container">
+    <!-- NAVBAR -->
+    <header class="top-navbar">
+      <div class="navbar-left">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Sidebar">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="app-logo">
+          <a href="/home"><span class="app-title">BINUS</span></a>
+        </div>
       </div>
+
+      <div class="navbar-right">
+        <a href="/faq" class="icon-button">
+          <HelpCircle size="28" />
+        </a>
+        <div class="user-profile">
+          <UserCircle size="32" />
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+          <ul>
+            <li class="sidebar-item" data-path-match="/">
+              <a href="/home">
+                <div class="icon-wrapper"><Home size="24" /></div>
+                <span class="sidebar-text">Home</span>
+              </a>
+            </li>
+            <li class="sidebar-item" data-path-match="/calendar">
+              <a href="/calendar">
+                <div class="icon-wrapper"><Calendar size="24" /></div>
+                <span class="sidebar-text">Calendar</span>
+              </a>
+            </li>
+            <li class="sidebar-item" data-path-match="/course">
+              <a href="/course">
+                <div class="icon-wrapper"><BookOpen size="24" /></div>
+                <span class="sidebar-text">Courses</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="main-content" id="main-content">
+        <slot />
+      </main>
     </div>
 
-    <div class="navbar-right">
-      <a href="/faq" class="icon-button">
-        <HelpCircle size="28" />
-      </a>
-      <div class="user-profile">
-        <UserCircle size="32" />
-      </div>
-    </div>
-  </header>
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+        const currentPath = window.location.pathname;
 
-  <div class="layout">
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-      <nav class="sidebar-nav">
-        <ul>
-          <li class="sidebar-item" data-path-match="/">
-            <a href="/home">
-              <div class="icon-wrapper"><Home size="24" /></div>
-              <span class="sidebar-text">Home</span>
-            </a>
-          </li>
-          <li class="sidebar-item" data-path-match="/calendar">
-            <a href="/calendar">
-              <div class="icon-wrapper"><Calendar size="24" /></div>
-              <span class="sidebar-text">Calendar</span>
-            </a>
-          </li>
-          <li class="sidebar-item" data-path-match="/course">
-            <a href="/course">
-              <div class="icon-wrapper"><BookOpen size="24" /></div>
-              <span class="sidebar-text">Courses</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </aside>
+        // Read initial expanded state from html class
+        if (document.documentElement.classList.contains('sidebar-expanded')) {
+          sidebar.classList.add('expanded');
+        }
 
-    <main class="main-content" id="main-content">
-      <slot />
-    </main>
-  </div>
-</div>
+        menuToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('expanded');
+          const expanded = sidebar.classList.contains('expanded');
+          mainContent.classList.toggle('sidebar-expanded', expanded);
+          document.documentElement.classList.toggle('sidebar-expanded', expanded);
+          localStorage.setItem('sidebarExpanded', expanded);
+        });
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.getElementById('menu-toggle');
-    const sidebar = document.getElementById('sidebar');
-    const mainContent = document.getElementById('main-content');
-    const sidebarItems = document.querySelectorAll('.sidebar-item');
-    const currentPath = window.location.pathname;
+        sidebarItems.forEach(item => {
+          item.classList.remove('active');
+          const match = item.getAttribute('data-path-match');
+          if (
+            (match === '/' && (currentPath === '/' || currentPath === '/home')) ||
+            (currentPath === match) ||
+            (match === '/course' && currentPath.startsWith('/course'))
+          ) {
+            item.classList.add('active');
+          }
+        });
+      });
+    </script>
 
-    const expanded = localStorage.getItem('sidebarExpanded') === 'true';
-    if (expanded) {
-      sidebar.classList.add('expanded');
-      mainContent.classList.add('sidebar-expanded');
-    }
-
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('expanded');
-      mainContent.classList.toggle('sidebar-expanded');
-      localStorage.setItem('sidebarExpanded', sidebar.classList.contains('expanded'));
-    });
-
-    sidebarItems.forEach(item => {
-      item.classList.remove('active');
-      const match = item.getAttribute('data-path-match');
-      if (
-        (match === '/' && (currentPath === '/' || currentPath === '/home')) ||
-        (currentPath === match) ||
-        (match === '/course' && currentPath.startsWith('/course'))
-      ) {
-        item.classList.add('active');
-      }
-    });
-  });
-</script>
-
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Google Sans', Roboto, Arial, sans-serif; }
-  body { background-color: #f9fafb; color: #111827; }
-
-  .classroom-container { height: 100vh; width: 100%; display: flex; flex-direction: column; }
-
-  /* NAVBAR */
-  .top-navbar {
-    height: 64px;
-    background: #fff;
-    border-bottom: 1px solid #e5e7eb;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 24px;
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 200;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  }
-  .navbar-left { display: flex; align-items: center; gap: 16px; }
-  .menu-toggle {
-    background: none; border: none; cursor: pointer;
-    display: flex; flex-direction: column; justify-content: space-between;
-    height: 20px; width: 26px; padding: 0;
-  }
-  .menu-toggle span {
-    background: #374151; height: 3px; width: 100%; border-radius: 2px;
-  }
-  .app-title { font-size: 24px; font-weight: 700; color: #111827; }
-  .navbar-right { display: flex; align-items: center; gap: 20px; }
-
-  /* LAYOUT STRUCTURE */
-  .layout {
-    display: flex;
-    margin-top: 64px;
-    height: calc(100vh - 64px);
-  }
-
-  /* SIDEBAR */
-  .sidebar {
-    width: 72px;
-    background: #fff;
-    border-right: 1px solid #e5e7eb;
-    transition: width 0.25s ease;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.03);
-    overflow: hidden;
-  }
-  .sidebar.expanded { width: 240px; }
-  .sidebar-nav ul { list-style: none; padding: 16px 0; margin: 0; }
-  .sidebar-item { margin: 8px 0; }
-
-  .sidebar-item a {
-    display: flex;
-    align-items: center;
-    padding: 12px 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: #111827;
-    transition: background 0.2s;
-  }
-
-  .sidebar-item a:hover {
-    background-color: #f3f4f6;
-  }
-
-  /* ACTIVE STATE */
-  .sidebar-item.active a {
-    background-color: #DBEAFE;
-  }
-
-  .icon-wrapper {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .sidebar-text {
-    padding-left: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease, padding 0.3s ease;
-  }
-
-  .sidebar.expanded .sidebar-text {
-    opacity: 1;
-    padding-left: 12px;
-  }
-
-  /* MAIN CONTENT */
-  .main-content {
-    flex: 1;
-    padding: 24px;
-    overflow-y: auto;
-    transition: margin-left 0.3s ease;
-  }
-  .sidebar-expanded {
-    margin-left: 168px; /* 240 - 72 */
-  }
-</style>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Google Sans', Roboto, Arial, sans-serif; }
+      body { background-color: #f9fafb; color: #111827; }
+      .classroom-container { height: 100vh; width: 100%; display: flex; flex-direction: column; }
+      .top-navbar { height: 64px; background: #fff; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; position: fixed; top: 0; left: 0; right: 0; z-index: 200; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+      .navbar-left { display: flex; align-items: center; gap: 16px; }
+      .menu-toggle { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; height: 20px; width: 26px; padding: 0; }
+      .menu-toggle span { background: #374151; height: 3px; width: 100%; border-radius: 2px; }
+      .app-title { font-size: 24px; font-weight: 700; color: #111827; }
+      .navbar-right { display: flex; align-items: center; gap: 20px; }
+      .layout { display: flex; margin-top: 64px; height: calc(100vh - 64px); }
+      .sidebar { width: 72px; background: #fff; border-right: 1px solid #e5e7eb; transition: width 0.25s ease; box-shadow: 2px 0 5px rgba(0,0,0,0.03); overflow: hidden; }
+      .sidebar.expanded { width: 240px; }
+      .sidebar-nav ul { list-style: none; padding: 16px 0; margin: 0; }
+      .sidebar-item { margin: 8px 0; }
+      .sidebar-item a { display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; text-decoration: none; color: #111827; transition: background 0.2s; }
+      .sidebar-item a:hover { background-color: #f3f4f6; }
+      .sidebar-item.active a { background-color: #DBEAFE; }
+      .icon-wrapper { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+      .sidebar-text { padding-left: 8px; font-size: 16px; font-weight: 500; white-space: nowrap; overflow: hidden; opacity: 0; transition: opacity 0.3s ease, padding 0.3s ease; }
+      .sidebar.expanded .sidebar-text { opacity: 1; padding-left: 12px; }
+      .main-content { flex: 1; padding: 24px; overflow-y: auto; transition: margin-left 0.3s ease; margin-left: 0; }
+      html.sidebar-expanded .main-content { margin-left: 168px; }
+    </style>
+  </body>
+</html>

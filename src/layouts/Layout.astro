@@ -1,6 +1,6 @@
 ---
 import Navbar from "../components/Navbar.astro"
-import Navbars from "../components/Navbar.astro"
+import NavSideBar from "../components/NavSideBar"
 import "../styles/global.css";
 ---
 
@@ -14,9 +14,9 @@ import "../styles/global.css";
 		<title>Astro Basics</title>
 	</head>
 	<body>
-		<Navbar>
-			<slot />
-		</Navbar>
+		<NavSideBar client:only="react">
+  <slot />
+</NavSideBar>
 	</body>
 </html>
 

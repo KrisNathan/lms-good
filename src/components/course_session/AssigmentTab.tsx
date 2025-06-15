@@ -1,4 +1,4 @@
-import AssignmentCard from "../AssignmentCard";
+import AssignmentCard from "../cards/AssignmentCard";
 
 
 export default function AssignmentTab() {
