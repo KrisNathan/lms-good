@@ -7,7 +7,7 @@ interface GradeItem {
 
 export default function Gradebook() {
   const title = "Final Score";
-  const status = "27 Apr 2025, 07:59 GMT+7";
+  const status = "23 May 2025, 17:59 GMT+7";
   const totalWeight = 100;
   const totalScore = "N/A";
   const totalGrade = "N/A";
@@ -17,7 +17,7 @@ export default function Gradebook() {
       name: "THEORY: ASSIGNMENT",
       weight: 20,
       score: "95",
-      status: "23 May 2025, 17:59 GMT+7"
+      status: "Scored on 23 May 2025, 17:59 GMT+7"
     },
     {
       name: "THEORY: MID EXAM",
@@ -40,7 +40,7 @@ export default function Gradebook() {
           <div>
             <h2 className="text-2xl font-semibold m-0">{title}</h2>
             <p className="text-sm opacity-80 mt-1 mb-0">
-              Status: {status}
+              Last Updated: {status}
             </p>
           </div>
           <div className="flex gap-8">
