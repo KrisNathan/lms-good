@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 interface Tab {
   label: string;
@@ -37,10 +37,10 @@ export default function HorizontalTab({ tabs, activeTab, onTabChange }: Props) {
   }, []);
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-full flex justify-center mb-6">
       <div
         ref={scrollContainerRef}
-        className="flex flex-row rounded-2xl border border-slate-200 overflow-x-auto max-w-full scrollbar-thin scroll-smooth"
+        className="flex flex-row bg-white rounded-full shadow-md border border-slate-200 overflow-x-auto max-w-full p-1 scrollbar-thin scroll-smooth"
         style={{
           scrollbarWidth: "thin",
           scrollbarColor: "#cbd5e1 #f1f5f9",
@@ -51,14 +51,14 @@ export default function HorizontalTab({ tabs, activeTab, onTabChange }: Props) {
           return (
             <button
               key={i}
-              className={`appearance-none p-3 px-5 whitespace-nowrap flex-shrink-0 font-medium text-sm transition-colors rounded-md mx-1 ${
+              className={`appearance-none px-6 py-3 whitespace-nowrap flex-shrink-0 font-medium text-base transition-colors rounded-full ${
                 isActive ? "bg-blue-500 text-white" : "hover:bg-slate-100 text-gray-700"
               }`}
               onClick={() => onTabChange(tab.label)}
             >
               {tab.label}
               {tab.count !== undefined && (
-                <span className={`ml-2 text-xs font-semibold ${isActive ? "text-white" : "text-gray-500"}`}>
+                <span className={`ml-2 text-sm font-semibold ${isActive ? "text-white" : "text-gray-500"}`}>
                   ({tab.count})
                 </span>
               )}
