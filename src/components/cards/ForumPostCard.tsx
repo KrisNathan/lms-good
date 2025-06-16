@@ -6,7 +6,6 @@ interface Props {
   postTitle: string;
   postDate: string;
   replyCount: number;
-  href?: string;
 }
 
 export default function ForumPostCard({ 
@@ -16,7 +15,6 @@ export default function ForumPostCard({
   postTitle, 
   postDate, 
   replyCount,
-  href = "/course/forum"
 }: Props) {
   const CardContent = (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm w-full flex flex-col">
@@ -41,13 +39,5 @@ export default function ForumPostCard({
       </div>
     </div>
   );
-
-  if (href) {
-    return (
-      <a href={href} className="block hover:opacity-90 transition-opacity">
-        {CardContent}
-      </a>
-    );
-  }
   return CardContent;
 }
