@@ -22,19 +22,13 @@ export default function FAQCard({ title, details }: FAQCardProps) {
       >
         <h3 className="text-lg font-semibold text-black pr-4">{title}</h3>
         <div className="flex-shrink-0">
-          {isOpen ? (
-            <ChevronUp className="w-5 h-5 text-black" />
-          ) : (
-            <ChevronDown className="w-5 h-5 text-black" />
-          )}
+          <ChevronDown className={`w-5 h-5 text-black transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </div>
       </button>
-      
-      {isOpen && (
-        <div className="px-6 py-4 border-t border-slate-200 bg-white">
-          <p className="text-black leading-relaxed">{details}</p>
-        </div>
-      )}
+
+      <div className={`px-6  border-slate-200 bg-white transition-all duration-200 ${isOpen ? "h-fit py-4 border-t" : "max-h-0 overflow-hidden"}`}>
+        <p className="text-black leading-relaxed">{details}</p>
+      </div>
     </div>
   );
 }

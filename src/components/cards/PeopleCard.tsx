@@ -5,7 +5,7 @@ export default function PeopleCard({
   field = "Computer Science" 
 }) {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 shadow-lg p-8 w-80 text-center">
+    <div className="bg-white rounded-lg border border-gray-200 shadow-lg p-8 w-auto text-center">
       <img 
         src={profilePhoto} 
         alt="Profile Photo" 
