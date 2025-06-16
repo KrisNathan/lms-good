@@ -82,13 +82,14 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
         
         {/* Main Content */}
         <main
-          className={`pt-20 transition-all duration-300 flex flex-row`}
+          className={`py-20 transition-all duration-300 flex flex-row`}
         >
           <div className={`transition-all duration-300 ${sidebarExpanded ? 'md:w-60' : 'md:w-20'}`}></div>
           <div className="flex-1 min-w-0 px-9">
             {children}
           </div>
         </main>
+        <div className="h-18 md:h-0"></div>
       </div>
 
       {/* Bottom Nav for Mobile */}
