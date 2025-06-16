@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import ForumPostCard from "../cards/ForumPostCard";
-
+import ForumDialog from "../dialogs/ForumDialog";
 interface Session {
   id: number;
   title: string;
@@ -198,6 +198,7 @@ interface Props {
 
 export default function ForumTab({ activeSessions = defaultSessions }: Props) {
   const [sessions, setSessions] = useState<Session[]>(activeSessions);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleSessionClick = (sessionId: number) => {
     setSessions(prevSessions => 
@@ -208,6 +209,14 @@ export default function ForumTab({ activeSessions = defaultSessions }: Props) {
     );
   };
 
+  const handlePostCardClick = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
   return (
     <div className="w-full">
       <div className="mb-5">
@@ -215,11 +224,19 @@ export default function ForumTab({ activeSessions = defaultSessions }: Props) {
       </div>
       <ForumPostCard
         courseCode="D1234"
-        professorName="Prof. Amogusussi Cappuccino"
+        professorName="Amogusussi Cappuccino"
         professorTitle="Ph.D."
-        postTitle="Interacting or whatever"
+        postTitle="Introduction to Computer Science"
         postDate="3 May 2025"
         replyCount={3}
+        onClick={handlePostCardClick}
+      />
+      
+      <ForumDialog
+        isOpen={isDialogOpen}
+        onClose={handleCloseDialog}
+        title="Introduction to Computer Science"
+        content="how are you guys doing on comsputer science are you guys okay"
       />
     </div>
   );

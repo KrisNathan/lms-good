@@ -1,4 +1,3 @@
-
 interface Props {
   courseCode: string;
   professorName: string;
@@ -6,6 +5,7 @@ interface Props {
   postTitle: string;
   postDate: string;
   replyCount: number;
+  onClick?: () => void;
 }
 
 export default function ForumPostCard({ 
@@ -15,9 +15,13 @@ export default function ForumPostCard({
   postTitle, 
   postDate, 
   replyCount,
+  onClick,
 }: Props) {
   const CardContent = (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-sm w-full flex flex-col">
+    <div 
+      className="bg-white rounded-2xl overflow-hidden shadow-sm w-full flex flex-col cursor-pointer hover:shadow-md transition-shadow"
+      onClick={onClick}
+    >
       <div className="px-5 pt-4 text-sm text-gray-700">
         <span className="font-medium">{courseCode}</span>
         <span className="mx-1.5">-</span>
