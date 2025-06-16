@@ -1,14 +1,32 @@
+import type React from "react";
+
+export type ButtonVariant = 'primary' | 'secondary' | 'danger';
+
 interface Props {
-  icon: string;
+  icon?: React.ReactNode;
   text: string;
   className?: string;
+  variant?: ButtonVariant;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-export default function Button({ icon, text, className = '', onClick = (e) => { } }: Props) {
-  return <button className={`flex flex-row w-fit gap-1 rounded-2xl py-1 px-5 hover:cursor-pointer ${className}`}
+const colorVariantMatcher = (variant: ButtonVariant) => {
+  switch(variant) {
+    case 'primary':
+      return 'bg-blue-500 text-white hover:bg-blue-600';
+    case 'secondary':
+      return 'bg-gray-200 text-gray-800 hover:bg-gray-300';
+    case 'danger':
+      return 'bg-red-500 text-white hover:bg-red-600';
+    default:
+      return 'bg-blue-500 text-white hover:bg-blue-600';
+  }
+}
+
+export default function Button({ icon, text, variant = 'primary', className = '', onClick = (e) => { } }: Props) {
+  return <button className={`flex flex-row w-fit gap-1 rounded-full py-2 px-6 hover:cursor-pointer font-medium ${colorVariantMatcher(variant)} ${className}`}
     onClick={onClick}>
-    <img src={icon}></img>
+    {icon}
     <div>{text}</div>
   </button>
 }
