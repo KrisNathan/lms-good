@@ -28,7 +28,7 @@ const SessionCard: React.FC<SessionCardProps> = ({
 }) => {
   return (
     <div
-      className="relative bg-white border border-blue-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition cursor-pointer"
+      className="relative bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-400 transition cursor-pointer"
       onClick={onClick}
     >
       {/* Onsite Badge (top-right) */}
