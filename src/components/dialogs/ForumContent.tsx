@@ -50,7 +50,7 @@ export default function ForumContent({
 
   return (
     <div className="flex-1 overflow-y-auto p-6">
-      <div className="bg-gray-50 p-4 rounded-lg mb-6">
+      <div className="bg-blue-50 p-4 rounded-lg mb-6">
         <div className="flex items-start space-x-3 mb-4">
           <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-semibold mt-1">
             {authorName.charAt(0)}
@@ -87,7 +87,7 @@ export default function ForumContent({
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Write a comment (min. 5 letters)"
-            className="w-full p-3 border border-gray-300 rounded-lg resize-none"
+            className="w-full border border-gray-200 p-3 rounded-lg resize-none shadow-sm"
             rows={4}
           />
           
@@ -134,7 +134,7 @@ export default function ForumContent({
 
         <div className="space-y-4">
           {comments.map((comment) => (
-            <div key={comment.id} className="border border-gray-200 rounded-lg p-4">
+            <div key={comment.id} className="border border-gray-200 rounded-lg p-4 shadow-sm">
               <div className="flex items-start space-x-3">
                 <div className="w-8 h-8 bg-green-500 mt-1 rounded-full flex items-center justify-center text-white text-sm font-semibold">
                   {comment.authorName.charAt(0)}

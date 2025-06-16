@@ -36,8 +36,8 @@ export default function ForumPostCard({
         {postDate}
       </div>
       
-      <div className="bg-gray-100 px-5 py-3 mt-auto">
-        <div className="text-sm font-medium text-gray-700">
+      <div className="bg-blue-50 px-5 py-3 mt-auto">
+        <div className="text-sm font-medium text-blue-600">
           {replyCount} {replyCount === 1 ? 'Reply' : 'Replies'}
         </div>
       </div>
