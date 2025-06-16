@@ -5,11 +5,11 @@ interface Props {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function ClassCard({ courseCode, courseName, instructor, onClick = () => {} }: Props) {
+export default function ClassCard({ courseCode, courseName, instructor, onClick }: Props) {
   return (
     <button 
-      className="w-full h-56 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-400 transition-all duration-300 text-left overflow-hidden focus:outline-none flex flex-col cursor-pointer"
-      onClick={onClick}
+      className={`w-full h-56 rounded-2xl bg-white border border-slate-200 shadow-sm transition-all duration-300 text-left overflow-hidden focus:outline-none flex flex-col ${onClick && "hover:shadow-md hover:border-blue-400 cursor-pointer"}`}
+      onClick={onClick ? onClick : () => {}}
     >
       {/* Code Header with gradient accent */}
       <div className="px-5 py-3 text-sm font-semibold text-blue-600 bg-blue-50 border-b border-slate-200 flex-shrink-0">

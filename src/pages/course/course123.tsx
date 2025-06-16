@@ -49,7 +49,6 @@ export default function Course123Page() {
         courseCode="CS101"
         courseName="Introduction to Computer Science"
         instructor="Dr. Alice Johnson"
-        onClick={() => {}}
       />
 
       <HorizontalTab tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
