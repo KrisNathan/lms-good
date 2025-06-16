@@ -3,6 +3,10 @@ import HorizontalTab from "../tab/HorizontalTab";
 import AttendCard from "../cards/AttendCard";
 import MaterialCard from "../cards/MaterialCard";
 import PdfViewerDialog from "../dialogs/PdfViewerDialog";
+import Button from "../buttons/Button";
+import DropdownButton from "../buttons/DropdownButton";
+import { File, FileText, Link, Plus, PlusIcon } from "lucide-react";
+import FloatingActionButton from "../buttons/FloatingActionButton";
 
 export default function SessionsTab() {
   const [activeTab, setActiveTab] = useState("Session 1");
@@ -26,6 +30,9 @@ export default function SessionsTab() {
         onTabChange={setActiveTab}
       />
       <AttendCard />
+
+      <FloatingActionButton icon={<Plus />} text="New Material" onClick={() => { }} />
+
       <MaterialCard
         type="pdf"
         title="Lecture 1: Dynamic Programming"
@@ -36,13 +43,13 @@ export default function SessionsTab() {
         type="ppt"
         title="Lecture 1: Dynamic Programming"
         subtitle="Uploaded 2 days ago"
-        onClick={() => {}}
+        onClick={() => { }}
       />
       <MaterialCard
         type="video"
         title="Lecture 1: Dynamic Programming"
         subtitle="Uploaded 2 days ago"
-        onClick={() => {}}
+        onClick={() => { }}
       />
 
       {/* PDF Viewer Dialog */}
