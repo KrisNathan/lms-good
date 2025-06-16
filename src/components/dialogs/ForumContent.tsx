@@ -45,26 +45,7 @@ export default function ForumContent({
   const [showResults, setShowResults] = useState(15);
 
   const handleCommentSubmit = () => {
-    if (newComment.trim()) {
-      const comment: Comment = {
-        id: comments.length + 1,
-        authorName: "Current User",
-        authorId: "123456789",
-        date: new Date().toLocaleDateString('en-GB', { 
-          day: '2-digit', 
-          month: 'short', 
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          timeZoneName: 'short'
-        }),
-        content: newComment,
-        likes: 0,
-        replies: 0
-      };
-      setComments([...comments, comment]);
-      setNewComment("");
-    }
+    setNewComment("");
   };
 
   return (
