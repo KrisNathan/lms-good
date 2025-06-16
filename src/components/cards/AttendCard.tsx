@@ -28,7 +28,7 @@ export default function AttendCard() {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="border border-slate-200 rounded-2xl bg-white shadow-sm hover:shadow-md transition p-6 flex justify-between items-center">
+      <div className="border border-slate-200 rounded-2xl bg-white shadow-sm transition p-6 flex justify-between items-center">
         {/* Left */}
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 flex items-center justify-center rounded-full bg-blue-100">
