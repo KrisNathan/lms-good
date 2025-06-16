@@ -1,5 +1,7 @@
-import { FileText, FileImage, FileVideo, FileArchive, BookOpen, File } from "lucide-react";
+import { FileText, FileImage, FileVideo, FileArchive, BookOpen, File, EllipsisIcon, Share, Link, Edit, Delete, Trash } from "lucide-react";
 import React from "react";
+import Button from "../buttons/Button";
+import EllipsisButton from "../buttons/EllipsisButton";
 
 interface MaterialCardProps {
   type: "pdf" | "ppt" | "video" | "image" | "doc" | "book" | "other";
@@ -27,19 +29,38 @@ const getIcon = (type: string) => {
 
 const MaterialCard: React.FC<MaterialCardProps> = ({ type, title, subtitle, onClick }) => {
   return (
-    <div 
-      onClick={onClick} 
-      className="bg-white rounded-2xl border border-gray-200 shadow hover:shadow-md transition p-5 flex items-center gap-4 cursor-pointer"
+    <div
+      onClick={onClick}
+      className="bg-white rounded-2xl border border-gray-200 shadow hover:shadow-md transition p-5 flex flex-row items-center gap-4 cursor-pointer"
     >
       <div className="w-14 h-14 flex items-center justify-center bg-blue-50 rounded-full">
         {getIcon(type)}
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-1 flex-col">
         <h3 className="text-lg font-semibold text-gray-900 mb-1 break-words">{title}</h3>
         {subtitle && (
           <p className="text-sm text-gray-500">{subtitle}</p>
         )}
+      </div>
+      <div className="flex" onClick={(e) => e.stopPropagation()}>
+        <EllipsisButton items={[
+          {
+            label: "Copy Link",
+            icon: <Link className="w-4 h-4" />,
+            onClick: () => alert("Copy link clicked"),
+          },
+          {
+            label: "Edit",
+            icon: <Edit className="w-4 h-4" />,
+            onClick: () => alert("Edit clicked"),
+          },
+          {
+            label: "Delete",
+            icon: <Trash className="w-4 h-4 text-red-500" />,
+            onClick: () => alert("Delete clicked"),
+          },
+        ]} />
       </div>
     </div>
   );
