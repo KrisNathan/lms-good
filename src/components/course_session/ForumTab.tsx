@@ -5,7 +5,7 @@ interface Session {
   id: number;
   title: string;
   Posts: number;
-  unreadPosts?: number;
+  unreadPosts: number;
   isActive?: boolean;
 }
 
