@@ -28,8 +28,8 @@ export default function Dialog({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className={`bg-white rounded-lg shadow-xl flex flex-col ${sizeClasses[size]}`}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className={`bg-white rounded-xl shadow-xl flex flex-col ${sizeClasses[size]}`}>
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 flex-shrink-0">
           <h2 className="text-lg font-semibold text-gray-900 truncate">{title}</h2>
