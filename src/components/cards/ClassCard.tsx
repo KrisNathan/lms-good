@@ -8,7 +8,7 @@ interface Props {
 export default function ClassCard({ courseCode, courseName, instructor, onClick = () => {} }: Props) {
   return (
     <button 
-      className="w-full h-56 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-400 transition-all duration-300 text-left overflow-hidden focus:outline-none flex flex-col"
+      className="w-full h-56 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-400 transition-all duration-300 text-left overflow-hidden focus:outline-none flex flex-col cursor-pointer"
       onClick={onClick}
     >
       {/* Code Header with gradient accent */}
