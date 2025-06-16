@@ -1,6 +1,6 @@
 import type React from "react";
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Check } from "lucide-react";
 import type { ButtonVariant } from "./Button";
 
 interface DropdownItem {
@@ -17,6 +17,9 @@ interface Props {
   variant?: ButtonVariant;
   items: DropdownItem[];
   disabled?: boolean;
+  maxHeight?: string;
+  searchable?: boolean;
+  placeholder?: string;
 }
 
 const colorVariantMatcher = (variant: ButtonVariant) => {
@@ -38,16 +41,29 @@ export default function DropdownButton({
   variant = 'primary', 
   className = '', 
   items,
-  disabled = false
+  disabled = false,
+  maxHeight = "300px",
+  searchable = false,
+  placeholder = "Search..."
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Filter items based on search term
+  const filteredItems = searchable 
+    ? items.filter(item => 
+        item.label.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : items;
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
+        setSearchTerm("");
       }
     };
 
@@ -55,9 +71,19 @@ export default function DropdownButton({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Focus search input when dropdown opens
+  useEffect(() => {
+    if (isOpen && searchable && searchInputRef.current) {
+      setTimeout(() => searchInputRef.current?.focus(), 100);
+    }
+  }, [isOpen, searchable]);
+
   const handleToggle = () => {
     if (!disabled) {
       setIsOpen(!isOpen);
+      if (!isOpen) {
+        setSearchTerm("");
+      }
     }
   };
 
@@ -65,46 +91,88 @@ export default function DropdownButton({
     if (!item.disabled) {
       item.onClick();
       setIsOpen(false);
+      setSearchTerm("");
     }
   };
 
+  // Check if current item is selected
+  const isItemSelected = (item: DropdownItem) => {
+    return item.label === text || text.includes(item.label);
+  };
+
   return (
-    <div className="relative inline-block" ref={dropdownRef}>
+    <div className="relative inline-block w-full" ref={dropdownRef}>
       <button 
-        className={`flex flex-row items-center w-fit gap-1 rounded-full py-2 px-6 font-medium transition-colors ${
+        className={`flex flex-row items-center w-full gap-2 rounded-xl py-3 px-4 font-medium transition-all duration-200 border ${
           disabled 
-            ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
-            : `hover:cursor-pointer ${colorVariantMatcher(variant)}`
+            ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200' 
+            : `hover:cursor-pointer ${colorVariantMatcher(variant)} border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`
         } ${className}`}
         onClick={handleToggle}
         disabled={disabled}
       >
         {icon}
-        <div>{text}</div>
+        <div className="flex-1 text-left truncate">{text}</div>
         <ChevronDown 
-          className={`ml-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 transition-transform duration-200 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-1 bg-white border border-slate-200 rounded-lg shadow-xl z-50">
-          <div className="py-1">
-            {items.map((item, index) => (
-              <button
-                key={index}
-                className={`w-full text-left px-4 py-2 text-sm flex items-center gap-2 transition-colors cursor-pointer ${
-                  item.disabled
-                    ? 'text-gray-400 cursor-not-allowed'
-                    : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                }`}
-                onClick={() => handleItemClick(item)}
-                disabled={item.disabled}
-              >
-                {item.icon}
-                {item.label}
-              </button>
-            ))}
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-hidden">
+          {/* Search Input */}
+          {searchable && (
+            <div className="p-3 border-b border-gray-100">
+              <input
+                ref={searchInputRef}
+                type="text"
+                placeholder={placeholder}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+              />
+            </div>
+          )}
+          
+          {/* Items Container */}
+          <div 
+            className="overflow-y-auto"
+            style={{ maxHeight }}
+          >
+            {filteredItems.length === 0 ? (
+              <div className="px-4 py-3 text-sm text-gray-500 text-center">
+                {searchable ? 'No results found' : 'No items available'}
+              </div>
+            ) : (
+              <div className="py-1">
+                {filteredItems.map((item, index) => {
+                  const isSelected = isItemSelected(item);
+                  return (
+                    <button
+                      key={index}
+                      className={`w-full text-left px-4 py-3 text-sm flex items-center gap-3 transition-colors cursor-pointer group relative ${
+                        item.disabled
+                          ? 'text-gray-400 cursor-not-allowed bg-gray-50'
+                          : isSelected
+                          ? 'text-blue-600 bg-blue-50 hover:bg-blue-100'
+                          : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                      }`}
+                      onClick={() => handleItemClick(item)}
+                      disabled={item.disabled}
+                    >
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        {item.icon}
+                        <span className="truncate">{item.label}</span>
+                      </div>
+                      {isSelected && (
+                        <Check className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       )}

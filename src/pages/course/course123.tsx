@@ -51,7 +51,7 @@ export default function Course123Page() {
         instructor="Dr. Alice Johnson"
       />
 
-      <HorizontalTab tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+      <HorizontalTab tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} variant="primary" />
 
       <div className="flex flex-col p-5 gap-5 border border-slate-200 rounded-2xl w-full">
         {tabComponents[activeTab]}
