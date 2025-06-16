@@ -1,3 +1,4 @@
+import TabSwitcher from "../../components/tab/TabSwitcher";
 import HorizontalTab from "../../components/tab/HorizontalTab";
 import ClassCard from "../../components/cards/ClassCard";
 import { useState } from 'react';
@@ -54,10 +55,26 @@ export default function CourseListPage() {
     ? courses
     : courses.filter(course => course.type === activeTab);
 
+  // Calculate counts for each tab
+  const allCount = courses.length;
+  const clCount = courses.filter(course => course.type === 'CL').length;
+  const labCount = courses.filter(course => course.type === 'LAB').length;
+  const lecCount = courses.filter(course => course.type === 'LEC').length;
+
   return (
     <div className="pt-6 flex flex-col gap-8 max-w-5xl mx-auto px-4">
 
-      <HorizontalTab 
+      <TabSwitcher 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab} 
+        tabs={[
+          { label: "All", count: allCount },
+          { label: "CL", count: clCount },
+          { label: "LAB", count: labCount },
+          { label: "LEC", count: lecCount }
+        ]}
+      />
+      {/* <HorizontalTab 
         activeTab={activeTab} 
         onTabChange={setActiveTab} 
         tabs={[
@@ -66,7 +83,7 @@ export default function CourseListPage() {
           { label: "LAB" },
           { label: "LEC" }
         ]}
-      />
+      /> */}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {filteredCourses.map((course, idx) => (
