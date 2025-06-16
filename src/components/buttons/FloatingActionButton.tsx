@@ -87,6 +87,7 @@ export default function FloatingActionButton({
         flex items-center justify-center gap-2 
         ${isCircular ? 'rounded-full' : 'rounded-full'}
         font-medium transition-all duration-200 hover:scale-105 active:scale-95
+        cursor-pointer
         ${colorVariantMatcher(variant)}
         ${sizeVariantMatcher(size, hasText)}
         ${positionVariantMatcher(position)}
