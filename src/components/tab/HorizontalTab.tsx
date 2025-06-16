@@ -33,9 +33,11 @@ export default function HorizontalTab({ tabs, activeTab, onTabChange, variant = 
       const hasOverflow = container.scrollWidth > container.clientWidth;
       setIsScrollable(hasOverflow);
       setCanScrollLeft(container.scrollLeft > 0);
-      setCanScrollRight(
-        container.scrollLeft < container.scrollWidth - container.clientWidth
-      );
+      
+      // Add tolerance for sub-pixel precision issues
+      const scrollableDistance = container.scrollWidth - container.clientWidth;
+      const currentScroll = container.scrollLeft;
+      setCanScrollRight(currentScroll < scrollableDistance - 1);
     }
   };
 
