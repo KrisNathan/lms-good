@@ -4,6 +4,7 @@ import ForumContent from "./ForumContent";
 interface ForumDialogProps {
   isOpen: boolean;
   onClose: () => void;
+  onPostDeleted?: () => void;
   title: string;
   content: string;
   authorName?: string;
@@ -17,6 +18,7 @@ interface ForumDialogProps {
 export default function ForumDialog({ 
   isOpen, 
   onClose, 
+  onPostDeleted,
   title, 
   content,
   authorName = "Amogussi Cappucino",
@@ -26,10 +28,18 @@ export default function ForumDialog({
   size = "xl",
   showCloseButton = true 
 }: ForumDialogProps) {
+  
+  const handlePostDeleted = () => {
+    if (onPostDeleted) {
+      onPostDeleted();
+    }
+    onClose();
+  };
+
   return (
     <Dialog 
       isOpen={isOpen} 
-      onClose={onClose} 
+      onClose={onClose}
       title="Session 1" 
       size={size}
       showCloseButton={showCloseButton}
@@ -41,6 +51,7 @@ export default function ForumDialog({
         authorDate={authorDate}
         authorAvatar={authorAvatar}
         authorStatus={authorStatus}
+        onClose={handlePostDeleted} 
       />
     </Dialog>
   );

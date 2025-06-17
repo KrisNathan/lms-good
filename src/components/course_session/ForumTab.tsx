@@ -1,12 +1,25 @@
 import { useRef, useEffect, useState } from "react";
 import ForumPostCard from "../cards/ForumPostCard";
 import ForumDialog from "../dialogs/ForumDialog";
+
 interface Session {
   id: number;
   title: string;
   Posts: number;
   unreadPosts: number;
   isActive?: boolean;
+}
+
+interface ForumPost {
+  id: number;
+  courseCode: string;
+  professorName: string;
+  professorTitle: string;
+  postTitle: string;
+  postContent: string;
+  postDate: string;
+  replyCount: number;
+  authorStatus: string;
 }
 
 const generateSessions = (): Session[] => {
@@ -29,6 +42,43 @@ const generateSessions = (): Session[] => {
 };
 
 const defaultSessions: Session[] = generateSessions();
+
+// Sample forum posts data
+const sampleForumPosts: ForumPost[] = [
+  {
+    id: 1,
+    courseCode: "D1234",
+    professorName: "Amogusussi Cappuccino",
+    professorTitle: "Ph.D.",
+    postTitle: "Introduction to Computer Science",
+    postContent: "how are you guys doing on comsputer science are you guys okay",
+    postDate: "3 May 2025",
+    replyCount: 3,
+    authorStatus: "Lecturer"
+  },
+  {
+    id: 2,
+    courseCode: "D1235",
+    professorName: "John Doe",
+    professorTitle: "M.Sc.",
+    postTitle: "Assignment 1 Discussion",
+    postContent: "Let's discuss the first assignment requirements and any questions you might have.",
+    postDate: "5 May 2025",
+    replyCount: 7,
+    authorStatus: "Teaching Assistant"
+  },
+  {
+    id: 3,
+    courseCode: "D1236",
+    professorName: "Jane Smith",
+    professorTitle: "M.E.",
+    postTitle: "Midterm Preparation",
+    postContent: "Here are some tips for preparing for the upcoming midterm examination.",
+    postDate: "8 May 2025",
+    replyCount: 12,
+    authorStatus: "Professor"
+  }
+];
 
 function SessionHorizontalTab({ sessions, onSessionClick }: {
   sessions: Session[];
@@ -198,7 +248,9 @@ interface Props {
 
 export default function ForumTab({ activeSessions = defaultSessions }: Props) {
   const [sessions, setSessions] = useState<Session[]>(activeSessions);
+  const [forumPosts, setForumPosts] = useState<ForumPost[]>(sampleForumPosts);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<ForumPost | null>(null);
 
   const handleSessionClick = (sessionId: number) => {
     setSessions(prevSessions => 
@@ -209,12 +261,33 @@ export default function ForumTab({ activeSessions = defaultSessions }: Props) {
     );
   };
 
-  const handlePostCardClick = () => {
+  const handlePostCardClick = (post: ForumPost) => {
+    setSelectedPost(post);
     setIsDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
+    setSelectedPost(null);
+  };
+
+  const handlePostDeleted = () => {
+    if (selectedPost) {
+      setForumPosts(prevPosts => prevPosts.filter(post => post.id !== selectedPost.id));
+      setSessions(prevSessions => 
+        prevSessions.map(session => {
+          if (session.isActive) {
+            return {
+              ...session,
+              Posts: Math.max(0, session.Posts - 1),
+              unreadPosts: Math.max(0, session.unreadPosts - 1)
+            };
+          }
+          return session;
+        })
+      );
+    }
+    handleCloseDialog();
   };
 
   return (
@@ -222,22 +295,41 @@ export default function ForumTab({ activeSessions = defaultSessions }: Props) {
       <div className="mb-5">
         <SessionHorizontalTab sessions={sessions} onSessionClick={handleSessionClick} />
       </div>
-      <ForumPostCard
-        courseCode="D1234"
-        professorName="Amogusussi Cappuccino"
-        professorTitle="Ph.D."
-        postTitle="Introduction to Computer Science"
-        postDate="3 May 2025"
-        replyCount={3}
-        onClick={handlePostCardClick}
-      />
       
-      <ForumDialog
-        isOpen={isDialogOpen}
-        onClose={handleCloseDialog}
-        title="Introduction to Computer Science"
-        content="how are you guys doing on comsputer science are you guys okay"
-      />
+      {forumPosts.length > 0 ? (
+        <div className="space-y-4">
+          {forumPosts.map((post) => (
+            <ForumPostCard
+              key={post.id}
+              courseCode={post.courseCode}
+              professorName={post.professorName}
+              professorTitle={post.professorTitle}
+              postTitle={post.postTitle}
+              postDate={post.postDate}
+              replyCount={post.replyCount}
+              onClick={() => handlePostCardClick(post)}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-12 text-gray-500">
+          <p className="text-lg">No posts available</p>
+          <p className="text-sm">Posts will appear here when they are created.</p>
+        </div>
+      )}
+      
+      {selectedPost && (
+        <ForumDialog
+          isOpen={isDialogOpen}
+          onClose={handleCloseDialog}
+          onPostDeleted={handlePostDeleted}
+          title={selectedPost.postTitle}
+          content={selectedPost.postContent}
+          authorName={selectedPost.professorName}
+          authorDate={selectedPost.postDate}
+          authorStatus={selectedPost.authorStatus}
+        />
+      )}
     </div>
   );
 }
