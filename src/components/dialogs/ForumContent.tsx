@@ -37,7 +37,7 @@ const sampleComments: Comment[] = [
     authorClass: "Computer Science",
     authorStatus: "Student",
     date: "10 May 2025, 23:10 GMT+7",
-    content: "vro i am literally cooked ts pmo 💔",
+    content: "vro i am literally cooked💔",
     likes: 0,
     replies: 0
   }
@@ -400,7 +400,6 @@ export default function ForumContent({
         </div>
       </div>
 
-      {/* Confirmation Dialog */}
       <ConfirmationDialog
         isOpen={deleteConfirmation.isOpen}
         onClose={() => setDeleteConfirmation({ isOpen: false, type: 'post' })}
