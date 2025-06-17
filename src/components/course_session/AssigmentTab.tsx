@@ -7,19 +7,16 @@ export default function AssignmentTab() {
         title="Project Report: Sorting Algorithm"
         dueDate="20 June 2025"
         status="pending"
-        onClick={() => {}}
       />
       <AssignmentCard
         title="Project Report: Sorting Algorithm"
         dueDate="20 June 2025"
         status="pending"
-        onClick={() => {}}
       />
       <AssignmentCard
         title="Project Report: Sorting Algorithm"
         dueDate="20 June 2025"
         status="pending"
-        onClick={() => {}}
       />
     </>
   );
