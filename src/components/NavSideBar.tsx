@@ -66,7 +66,7 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
         {/* Navbar */}
         <header className="flex justify-between items-center h-16 px-5 bg-white border-b border-gray-200 shadow-sm fixed top-0 left-0 right-0 z-50">
           <div className="flex items-center gap-4">
-            <button onClick={toggleSidebar} className="hidden md:flex flex-col hover:bg-slate-100 rounded-full overflow-hidden p-2  hover:scale-105 active:scale-95">
+            <button onClick={toggleSidebar} className="hidden md:flex flex-col hover:bg-slate-100 rounded-full overflow-hidden p-2  hover:scale-105 active:scale-95 cursor-pointer">
               <Menu size={24} className={`text-gray-600 transition-transform ${sidebarExpanded ? 'rotate-90' : ''}`} />
             </button>
             <a href="/home" className="text-2xl font-bold text-gray-900">SUNIB</a>
