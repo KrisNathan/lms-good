@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Home, Calendar, BookOpen, HelpCircle, UserCircle } from "lucide-react";
+import { Home, Calendar, BookOpen, HelpCircle, UserCircle, Hamburger, Menu } from "lucide-react";
+import Button from "./buttons/Button";
 
 export default function NavSidebar({ children }: { children: React.ReactNode }) {
   const [sidebarExpanded, setSidebarExpanded] = useState(() => {
@@ -41,9 +42,9 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
                 <li key={item.path}>
                   <a
                     href={item.path}
-                    className={`flex items-center px-4 py-3 rounded-full transition-all duration-300 
+                    className={`flex items-center px-4 py-3 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 
                       ${sidebarExpanded ? "justify-start" : "justify-center"} 
-                      ${isActive ? "bg-blue-100 text-blue-600" : "hover:bg-gray-100"}`}
+                      ${isActive ? "bg-blue-100 text-blue-600" : "hover:bg-slate-100"}`}
                   >
                     {item.icon}
                     <span
@@ -63,12 +64,10 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
       <div className="flex-1 flex flex-col w-full">
 
         {/* Navbar */}
-        <header className="flex justify-between items-center h-16 px-6 bg-white border-b border-gray-200 shadow-sm fixed top-0 left-0 right-0 z-50">
+        <header className="flex justify-between items-center h-16 px-5 bg-white border-b border-gray-200 shadow-sm fixed top-0 left-0 right-0 z-50">
           <div className="flex items-center gap-4">
-            <button onClick={toggleSidebar} className="hidden md:flex flex-col justify-between w-7 h-5">
-              <span className="block h-[3px] bg-gray-700 rounded"></span>
-              <span className="block h-[3px] bg-gray-700 rounded"></span>
-              <span className="block h-[3px] bg-gray-700 rounded"></span>
+            <button onClick={toggleSidebar} className="hidden md:flex flex-col hover:bg-slate-100 rounded-full overflow-hidden p-2  hover:scale-105 active:scale-95">
+              <Menu size={24} className={`text-gray-600 transition-transform ${sidebarExpanded ? 'rotate-90' : ''}`} />
             </button>
             <a href="/home" className="text-2xl font-bold text-gray-900">SUNIB</a>
           </div>
@@ -99,7 +98,7 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
             const isActive = currentPath.startsWith(item.path);
             return (
               <li key={item.path}>
-                <a href={item.path} className={`flex flex-col items-center text-sm ${isActive ? "text-blue-600" : "text-gray-600"}`}>
+                <a href={item.path} className={`flex flex-col items-center text-sm hover:scale-105 active:scale-95 ${isActive ? "text-blue-600" : "text-gray-600"}`}>
                   {item.icon}
                   <span className="mt-1">{item.label}</span>
                 </a>
