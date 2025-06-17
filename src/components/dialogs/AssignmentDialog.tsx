@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { FileCheck, FileClock, FileWarning, Upload, FileText, Calendar, Clock, User } from "lucide-react";
 import Dialog from "./Dialog";
 import Button from "../buttons/Button";
+import FileUploadBox from "../common/FileUploadBox";
 
 interface AssignmentDialogProps {
   isOpen: boolean;
@@ -35,7 +36,6 @@ const getStatusInfo = (status: string) => {
 
 function AssignmentDialogContent({ assignment, onSubmit, onClose }: Omit<AssignmentDialogProps, 'isOpen'>) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [dragActive, setDragActive] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const statusInfo = getStatusInfo(assignment.status);
@@ -45,26 +45,6 @@ function AssignmentDialogContent({ assignment, onSubmit, onClose }: Omit<Assignm
   useEffect(() => {
     setSelectedFile(null);
   }, [assignment]);
-
-  const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(false);
-    if (e.dataTransfer.files[0] && canSubmit) {
-      setSelectedFile(e.dataTransfer.files[0]);
-    }
-  };
-
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0] && canSubmit) {
-      setSelectedFile(e.target.files[0]);
-    }
-  };
-
-  const handleChooseFileClick = () => {
-    if (canSubmit) {
-      document.getElementById('assignment-file-upload')?.click();
-    }
-  };
 
   const handleSubmit = async () => {
     if (!selectedFile || !onSubmit) return;
@@ -163,41 +143,13 @@ function AssignmentDialogContent({ assignment, onSubmit, onClose }: Omit<Assignm
         {canSubmit && (
           <div>
             <h3 className="font-medium text-gray-900 mb-3">Submit Assignment</h3>
-            <div 
-              onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
-              onDragLeave={() => setDragActive(false)}
-              onDrop={handleFileDrop}
-              className={`p-6 border-2 border-dashed rounded-lg text-center transition 
-                ${dragActive ? "border-blue-500 bg-blue-50" : "border-gray-300 hover:border-gray-400"}`}
-            >
-              <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-              <p className="mb-2 text-sm text-gray-600">
-                {selectedFile ? selectedFile.name : "Drag & drop your assignment file or click to select"}
-              </p>
-              <input 
-                id="assignment-file-upload" 
-                type="file" 
-                className="hidden" 
-                onChange={handleFileSelect}
-                accept=".pdf,.doc,.docx,.txt,.zip,.rar"
-              />
-              <div className="flex justify-center">
-                <Button 
-                  text="Choose File" 
-                  variant="secondary" 
-                  onClick={handleChooseFileClick}
-                  className="text-sm"
-                />
-              </div>
-            </div>
-            {selectedFile && (
-              <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                <div className="flex items-center gap-2 text-sm text-blue-700">
-                  <FileText className="w-4 h-4" />
-                  <span>Selected: {selectedFile.name}</span>
-                </div>
-              </div>
-            )}
+            <FileUploadBox
+              selectedFile={selectedFile}
+              onFileSelect={setSelectedFile}
+              accept=".pdf,.doc,.docx,.txt,.zip,.rar"
+              placeholder="Drag & drop your assignment file or click to select"
+              disabled={!canSubmit}
+            />
           </div>
         )}
       </div>

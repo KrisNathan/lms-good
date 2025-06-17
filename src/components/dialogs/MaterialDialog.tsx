@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { FileText, FileImage, FileVideo, FileArchive, BookOpen, File, Upload, Link } from "lucide-react";
 import Dialog from "./Dialog";
 import Button from "../buttons/Button";
+import FileUploadBox from "../common/FileUploadBox";
 
 interface MaterialDialogProps {
   isOpen: boolean;
@@ -37,9 +38,7 @@ function MaterialDialogContent({ mode, onAdd, onSave, initialData, onClose }: Om
     url: "",
     file: null as File | null
   });
-
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [dragActive, setDragActive] = useState(false);
   const isAddMode = mode === 'add';
 
   useEffect(() => {
@@ -101,33 +100,16 @@ function MaterialDialogContent({ mode, onAdd, onSave, initialData, onClose }: Om
     }
     handleClose();
   };
-
   const handleClose = () => {
     setFormData({ title: "", subtitle: "", type: "pdf", uploadMethod: "file", url: "", file: null });
     setErrors({});
     onClose();
   };
 
-  const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(false);
-    if (e.dataTransfer.files[0]) {
-      const file = e.dataTransfer.files[0];
-      handleInputChange("file", file);
-      if (!formData.title) handleInputChange("title", file.name.replace(/\.[^/.]+$/, ""));
+  const handleTitleSuggestion = (suggestedTitle: string) => {
+    if (!formData.title) {
+      handleInputChange("title", suggestedTitle);
     }
-  };
-
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      const file = e.target.files[0];
-      handleInputChange("file", file);
-      if (!formData.title) handleInputChange("title", file.name.replace(/\.[^/.]+$/, ""));
-    }
-  };
-
-  const handleChooseFileClick = () => {
-    document.getElementById('file-upload')?.click();
   };
 
   return (
@@ -153,28 +135,17 @@ function MaterialDialogContent({ mode, onAdd, onSave, initialData, onClose }: Om
 
         {/* File/URL Selection */}
         {isAddMode && (
-          <>
-            {formData.uploadMethod === "file" ? (
+          <>            {formData.uploadMethod === "file" ? (
               <div>
                 <label className="block font-medium mb-2">File *</label>
-                <div onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
-                     onDragLeave={() => setDragActive(false)}
-                     onDrop={handleFileDrop}
-                     className={`p-6 border-2 border-dashed rounded-lg text-center transition 
-                      ${dragActive ? "border-blue-500 bg-blue-50" : errors.file ? "border-red-500 bg-red-50" : "border-gray-300 hover:border-gray-400"}`}>
-                  <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                  <p className="mb-2 text-sm text-gray-600">{formData.file ? formData.file.name : "Drag & drop or click to select file"}</p>
-                  <input id="file-upload" type="file" className="hidden" onChange={handleFileSelect} />
-                  <div className="flex justify-center">
-                    <Button 
-                      text="Choose File" 
-                      variant="secondary" 
-                      onClick={handleChooseFileClick}
-                      className="text-sm"
-                    />
-                  </div>
-                </div>
-                {errors.file && <p className="text-red-500 text-xs mt-1">{errors.file}</p>}
+                <FileUploadBox
+                  selectedFile={formData.file}
+                  onFileSelect={(file) => handleInputChange("file", file)}
+                  error={errors.file}
+                  autoFillTitle={true}
+                  onTitleSuggestion={handleTitleSuggestion}
+                  placeholder="Drag & drop or click to select file"
+                />
               </div>
             ) : (
               <div>
