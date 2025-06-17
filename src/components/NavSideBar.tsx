@@ -33,7 +33,7 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
         className={`hidden md:block fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] bg-white border-r border-gray-200 shadow-sm transition-all duration-300
           ${sidebarExpanded ? "w-60" : "w-20"}`}
       >
-        <nav className="py-4">
+        <nav className="py-2 px-2">
           <ul className="flex flex-col gap-2">
             {navItems.map((item) => {
               const isActive = currentPath.startsWith(item.path);
@@ -41,14 +41,14 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
                 <li key={item.path}>
                   <a
                     href={item.path}
-                    className={`flex items-center px-4 py-3 rounded-lg transition-all duration-300 
+                    className={`flex items-center px-4 py-3 rounded-full transition-all duration-300 
                       ${sidebarExpanded ? "justify-start" : "justify-center"} 
                       ${isActive ? "bg-blue-100 text-blue-600" : "hover:bg-gray-100"}`}
                   >
                     {item.icon}
                     <span
-                      className={`ml-2 font-medium transition-all duration-300 overflow-hidden
-                        ${sidebarExpanded ? "opacity-100 w-auto" : "opacity-0 w-0 ml-0"}`}
+                      className={`font-medium transition-all duration-300 overflow-hidden
+                        ${sidebarExpanded ? "opacity-100 w-auto ml-2" : "opacity-0 w-0 ml-0"}`}
                     >
                       {item.label}
                     </span>
