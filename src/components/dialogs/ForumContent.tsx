@@ -86,7 +86,7 @@ export default function ForumContent({
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-gray-900">{authorName}</h3>
               <EllipsisButton 
-                variant="secondary" 
+                variant="transparent" 
                 items={postDropdownItems}
                 size="sm"
               />
@@ -186,7 +186,7 @@ export default function ForumContent({
                         </button>
                       </div>
                       <EllipsisButton 
-                        variant="secondary" 
+                        variant="transparent" 
                         items={commentDropdownItems}
                         size="sm"
                       />

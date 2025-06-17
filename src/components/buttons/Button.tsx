@@ -19,7 +19,7 @@ const colorVariantMatcher = (variant: ButtonVariant) => {
     case 'danger':
       return 'bg-red-500 text-white hover:bg-red-600';
     case 'transparent':
-      return 'bg-transparent text-white hover:bg-gray-100';
+      return 'bg-transparent text-gray-600 hover:bg-gray-100';
     default:
       return 'bg-blue-500 text-white hover:bg-blue-600';
   }
