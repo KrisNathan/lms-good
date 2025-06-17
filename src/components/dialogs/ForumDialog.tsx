@@ -9,6 +9,7 @@ interface ForumDialogProps {
   authorName?: string;
   authorDate?: string;
   authorAvatar?: string;
+  authorStatus: string;
   size?: "sm" | "md" | "lg" | "xl" | "full";
   showCloseButton?: boolean;
 }
@@ -21,6 +22,7 @@ export default function ForumDialog({
   authorName = "Amogussi Cappucino",
   authorDate = "3 May 2025, 05:21 GMT+7",
   authorAvatar = "/user-icon.png",
+  authorStatus = "Lecturer",
   size = "xl",
   showCloseButton = true 
 }: ForumDialogProps) {
@@ -38,6 +40,7 @@ export default function ForumDialog({
         authorName={authorName}
         authorDate={authorDate}
         authorAvatar={authorAvatar}
+        authorStatus={authorStatus}
       />
     </Dialog>
   );
