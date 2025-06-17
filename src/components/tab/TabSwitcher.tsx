@@ -49,14 +49,14 @@ export default function TabSwitcher({ tabs, activeTab, onTabChange }: TabSwitche
                 if (el) tabRefs.current[index] = el;
               }}
               onClick={() => onTabChange(tab.label)}
-              className={`relative z-10 px-5 py-2 rounded-full font-medium flex items-center gap-2 transition-colors duration-300 whitespace-nowrap ${
+              className={`relative z-10 p-2 md:px-5 md:py-2 rounded-full font-medium flex items-center gap-2 transition-colors duration-300 whitespace-nowrap text-xs md:text-base ${
                 isActive ? 'text-white' : 'text-gray-700'
               }`}
             >
               <span>{tab.label}</span>
               {tab.count !== undefined && (
                 <span
-                  className={`flex items-center justify-center text-xs font-bold rounded-full py-0.5 px-2 ${ 
+                  className={`flex items-center justify-center text-[10px] md:text-xs font-bold rounded-full py-0.5 md:px-2 px-1 ${ 
                     isActive ? 'bg-white text-blue-500' : 'bg-gray-200 text-gray-700'
                   }`}
                 >
