@@ -1,6 +1,6 @@
 import type React from "react";
 
-export type ButtonVariant = 'primary' | 'secondary' | 'danger';
+export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'transparent';
 
 interface Props {
   icon?: React.ReactNode;
@@ -18,6 +18,8 @@ const colorVariantMatcher = (variant: ButtonVariant) => {
       return 'bg-gray-200 text-gray-800 hover:bg-gray-300';
     case 'danger':
       return 'bg-red-500 text-white hover:bg-red-600';
+    case 'transparent':
+      return 'bg-transparent text-white hover:bg-gray-100';
     default:
       return 'bg-blue-500 text-white hover:bg-blue-600';
   }

@@ -1,5 +1,6 @@
-import { ThumbsUp, MessageSquare } from "lucide-react";
+import { ThumbsUp, MessageSquare, Edit, Trash2 } from "lucide-react";
 import { useState } from "react";
+import EllipsisButton from "../buttons/EllipsisButton";
 
 interface Comment {
   id: number;
@@ -48,6 +49,32 @@ export default function ForumContent({
     setNewComment("");
   };
 
+  const postDropdownItems = [
+    {
+      label: "Edit",
+      icon: <Edit size={16} />,
+      onClick: () => console.log("Edit post clicked")
+    },
+    {
+      label: "Delete",
+      icon: <Trash2 size={16} />,
+      onClick: () => console.log("Delete post clicked")
+    }
+  ];
+
+  const commentDropdownItems = [
+    {
+      label: "Edit",
+      icon: <Edit size={16} />,
+      onClick: () => console.log("Edit comment clicked")
+    },
+    {
+      label: "Delete",
+      icon: <Trash2 size={16} />,
+      onClick: () => console.log("Delete comment clicked")
+    }
+  ];
+
   return (
     <div className="flex-1 overflow-y-auto p-6">
       <div className="bg-blue-50 p-4 rounded-lg mb-6">
@@ -58,6 +85,11 @@ export default function ForumContent({
           <div className="flex-1">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-gray-900">{authorName}</h3>
+              <EllipsisButton 
+                variant="secondary" 
+                items={postDropdownItems}
+                size="sm"
+              />
             </div>
             <p className="text-sm text-gray-600">{authorDate}</p>
           </div>
@@ -142,15 +174,22 @@ export default function ForumContent({
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1">
                     <h4 className="font-semibold text-gray-900">{comment.authorName}</h4>
-                    <div className="flex items-center space-x-4 text-gray-500 text-sm">
-                      <button className="flex items-center hover:text-blue-600">
-                        <ThumbsUp size={14} className="mr-1" />
-                        <span>{comment.likes}</span>
-                      </button>
-                      <button className="flex items-center hover:text-blue-600">
-                        <MessageSquare size={14} className="mr-1" />
-                        <span>REPLY</span>
-                      </button>
+                    <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-4 text-gray-500 text-sm">
+                        <button className="flex items-center hover:text-blue-600">
+                          <ThumbsUp size={14} className="mr-1" />
+                          <span>{comment.likes}</span>
+                        </button>
+                        <button className="flex items-center hover:text-blue-600">
+                          <MessageSquare size={14} className="mr-1" />
+                          <span>REPLY</span>
+                        </button>
+                      </div>
+                      <EllipsisButton 
+                        variant="secondary" 
+                        items={commentDropdownItems}
+                        size="sm"
+                      />
                     </div>
                   </div>
                   <p className="text-sm text-gray-600 mb-2">{comment.date}</p>
