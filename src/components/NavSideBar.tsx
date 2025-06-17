@@ -51,8 +51,10 @@ export default function NavSidebar({ children }: { children: React.ReactNode }) 
           className={`py-20 md:pb-0 transition-all duration-300 flex flex-row h-full`}
         >
           <div className={`transition-all duration-300 h-full ${sidebarExpanded ? 'md:w-60' : 'md:w-20'}`}></div>
-          <div className="flex-1 min-w-0 px-9 bg-gray-50 md:rounded-2xl overflow-y-auto h-full shadow-sm z-40">
-            {children}
+          <div className="flex-1 min-w-0 p-1 h-full">
+            <div className="bg-gray-50 px-9 md:rounded-2xl overflow-y-auto h-full z-40 shadow-sm">
+              {children}
+            </div>
           </div>
         </main>
         <div className="h-18 md:h-0"></div>
