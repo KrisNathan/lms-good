@@ -36,7 +36,6 @@ const getStatusInfo = (status: string) => {
 
 function AssignmentDialogContent({ assignment, onSubmit, onClose }: Omit<AssignmentDialogProps, 'isOpen'>) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const statusInfo = getStatusInfo(assignment.status);
   const isSubmitted = assignment.status === "submitted";
@@ -46,18 +45,12 @@ function AssignmentDialogContent({ assignment, onSubmit, onClose }: Omit<Assignm
     setSelectedFile(null);
   }, [assignment]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!selectedFile || !onSubmit) return;
     
-    setIsSubmitting(true);
-    try {
-      await onSubmit(selectedFile);
-      onClose();
-    } catch (error) {
-      console.error('Submission failed:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Call the onSubmit function which will update the assignment status
+    onSubmit(selectedFile);
+    // Note: Dialog will be closed by the parent component after onSubmit
   };
 
   const formatDate = (dateString: string) => {
@@ -97,8 +90,6 @@ function AssignmentDialogContent({ assignment, onSubmit, onClose }: Omit<Assignm
             </div>
           </div>
         </div>
-
-        {/* Assignment Description */}
         <div>
           <h3 className="font-medium text-gray-900 mb-2">Description</h3>
           <div className="bg-gray-50 rounded-lg p-4">
@@ -106,7 +97,6 @@ function AssignmentDialogContent({ assignment, onSubmit, onClose }: Omit<Assignm
           </div>
         </div>
 
-        {/* Submission Status */}
         {isSubmitted && (
           <div>
             <h3 className="font-medium text-gray-900 mb-3">Your Submission</h3>
@@ -139,7 +129,6 @@ function AssignmentDialogContent({ assignment, onSubmit, onClose }: Omit<Assignm
           </div>
         )}
 
-        {/* File Upload Section */}
         {canSubmit && (
           <div>
             <h3 className="font-medium text-gray-900 mb-3">Submit Assignment</h3>
@@ -154,15 +143,13 @@ function AssignmentDialogContent({ assignment, onSubmit, onClose }: Omit<Assignm
         )}
       </div>
 
-      {/* Footer */}
       <div className="flex justify-end gap-3 p-6 border-t border-gray-200 flex-shrink-0">
         <Button text="Close" variant="secondary" onClick={onClose} />
         {canSubmit && selectedFile && (
           <Button 
-            text={isSubmitting ? "Submitting..." : "Submit Assignment"} 
+            text="Submit Assignment" 
             variant="primary" 
             onClick={handleSubmit}
-            className={isSubmitting ? "opacity-50 cursor-not-allowed" : ""}
           />
         )}
       </div>

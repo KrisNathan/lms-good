@@ -58,6 +58,13 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({
     setIsDialogOpen(false);
   };
 
+  const handleSubmit = (file: File) => {
+    if (onSubmit) {
+      onSubmit(file);
+    }
+    setIsDialogOpen(false);
+  };
+
   const assignmentData = {
     title,
     description,
@@ -69,6 +76,7 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({
     grade,
     feedback
   };
+
   return (
     <>
       <div 
@@ -93,7 +101,7 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({
         isOpen={isDialogOpen}
         onClose={handleDialogClose}
         assignment={assignmentData}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
       />
     </>
   );
