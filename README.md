@@ -1,5 +1,23 @@
 # Learning Management System
 
+## Quick Start
+
+Be sure to install node.js 22
+
+Install dependencies:
+
+```sh
+npm i
+```
+
+To start server:
+
+```sh
+npm run dev
+```
+
+---
+
 ## 🚀 Project Structure
 
 Inside of your Astro project, you'll see the following folders and files:
